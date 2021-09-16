@@ -86,41 +86,80 @@ class Kandidat extends BaseController
 
     public function edit($id)
     {
-        $category = $this->kandidatModel->where('id_category', $id)->first();
+        $kandidat = $this->kandidatModel->where('id_kandidat', $id)->first();
         $data = [
-            'titlePage' => 'Edit Category Data',
+            'titlePage' => 'Edit Kandidat Data',
             'validation' => \Config\Services::validation(),
-            'category' => $category
+            'kandidat' => $kandidat
         ];
-        return view('/category/edit', $data);
+        return view('/kandidat/edit', $data);
     }
 
     public function update($id)
     {
-        // dd($this->request->getFile('image'));
+        $fotoKandidat = $this->request->getFiles();
 
-        if (empty($this->request->getFile('image')->getName())) {
+        if (empty($fotoKandidat['foto_ketua']->getName()) && empty($fotoKandidat['foto_wakil']->getName())) {
             $this->kandidatModel->save([
-                'id_category' => $id,
-                'name_category' => $this->request->getVar('name'),
-                'desc_category' => $this->request->getVar('desc')
+                'id_kandidat' => $id,
+                'nama_ketua' => $this->request->getVar('nama_ketua'),
+                'nama_wakil' => $this->request->getVar('nama_wakil'),
+                'visi' => $this->request->getVar('visi'),
+                'misi' => $this->request->getVar('misi'),
+                'program_kerja' => $this->request->getVar('program_kerja'),
+                'slogan' => $this->request->getVar('slogan'),
             ]);
+        } elseif (empty($fotoKandidat['foto_ketua']->getName())) {
+            $fileNameWakil = $fotoKandidat['foto_wakil']->getRandomName();
+
+            $this->kandidatModel->save([
+                'id_kandidat' => $id,
+                'nama_ketua' => $this->request->getVar('nama_ketua'),
+                'nama_wakil' => $this->request->getVar('nama_wakil'),
+                'visi' => $this->request->getVar('visi'),
+                'misi' => $this->request->getVar('misi'),
+                'program_kerja' => $this->request->getVar('program_kerja'),
+                'slogan' => $this->request->getVar('slogan'),
+                'foto_wakil' => $fileNameWakil
+            ]);
+
+            $fotoKandidat['foto_wakil']->move('images/kandidat/', $fileNameWakil);
+        } elseif (empty($fotoKandidat['foto_wakil']->getName())) {
+            $fileNameKetua = $fotoKandidat['foto_ketua']->getRandomName();
+
+            $this->kandidatModel->save([
+                'id_kandidat' => $id,
+                'nama_ketua' => $this->request->getVar('nama_ketua'),
+                'nama_wakil' => $this->request->getVar('nama_wakil'),
+                'visi' => $this->request->getVar('visi'),
+                'misi' => $this->request->getVar('misi'),
+                'program_kerja' => $this->request->getVar('program_kerja'),
+                'slogan' => $this->request->getVar('slogan'),
+                'foto_ketua' => $fileNameKetua
+            ]);
+
+            $fotoKandidat['foto_ketua']->move('images/kandidat/', $fileNameKetua);
         } else {
-            $dataimage = $this->request->getFile('image');
-            $fileName = $dataimage->getRandomName();
+            $fileNameKetua = $fotoKandidat['foto_ketua']->getRandomName();
+            $fileNameWakil = $fotoKandidat['foto_wakil']->getRandomName();
 
             $this->kandidatModel->save([
-                'id_category' => $id,
-                'name_category' => $this->request->getVar('name'),
-                'desc_category' => $this->request->getVar('desc'),
-                'image_category' => $fileName
+                'id_kandidat' => $id,
+                'nama_ketua' => $this->request->getVar('nama_ketua'),
+                'nama_wakil' => $this->request->getVar('nama_wakil'),
+                'visi' => $this->request->getVar('visi'),
+                'misi' => $this->request->getVar('misi'),
+                'program_kerja' => $this->request->getVar('program_kerja'),
+                'slogan' => $this->request->getVar('slogan'),
+                'foto_ketua' => $fileNameKetua,
+                'foto_wakil' => $fileNameWakil
             ]);
-
-            $dataimage->move('images/', $fileName);
+            $fotoKandidat['foto_ketua']->move('images/kandidat/', $fileNameKetua);
+            $fotoKandidat['foto_wakil']->move('images/kandidat/', $fileNameWakil);
         }
 
         session()->setFlashdata('pesan', 'Data success changed');
-        return redirect()->to('/category/list');
+        return redirect()->to('kandidat/');
     }
 
     public function delete($id)

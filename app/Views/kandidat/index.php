@@ -9,7 +9,7 @@
     </header>
 
     <div class="page-heading">
-        <h3>Profile Statistics</h3>
+        <h3>Halaman Kandidat</h3>
     </div>
 
     <div class="page-content">
@@ -255,9 +255,14 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Close</span>
                     </button>
-                    <button type="button" class="btn btn-warning ml-1" data-bs-dismiss="modal">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Ubah</span>
+                    <form action="<?= base_url(); ?>/kandidat/edit/<?= $data['id_kandidat']; ?>" method="POST" class="d-inline">
+                        <?= csrf_field(); ?>
+                        <input type="hidden" name="_method" value="UPDATE">
+                        <button type="submit" class="btn btn-warning ml-1">
+                            <i class="bx bx-check d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Ubah</span>
+                        </button>
+                    </form>
                     </button>
                 </div>
             </div>

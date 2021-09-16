@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->delete('kandidat/(:num)', 'Kandidat::delete/$1');
 $routes->get('kandidat/(:num)', 'Kandidat::getById/$1');
+$routes->post('kandidat/edit/(:num)', 'Kandidat::edit/$1');
 
 /*
  * --------------------------------------------------------------------
