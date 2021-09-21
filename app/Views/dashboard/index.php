@@ -18,7 +18,7 @@
             <div class="col-12 col-lg-9">
                 <div class="row">
                     <div class="col-6 col-lg-2 col-md-6">
-                        <a href="<?= base_url(); ?>/kandidat/">
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                             <div class="xz-card card">
                                 <div class="card-body py-4-5">
                                     <div class="row">
@@ -35,59 +35,39 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="xz-card card">
-                            <div class="card-body px-3 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="stats-icon blue">
-                                            <i class="iconly-boldProfile"></i>
+
+                    <?php foreach ($event as $data) :
+                    ?>
+
+                        <div class="col-6 col-lg-4 col-md-6">
+                            <a href="<?= base_url(); ?>/kandidat/event/<?= $data['id_poll']; ?>">
+                                <div class="xz-card card">
+                                    <div class="card-body px-3 py-4-5 mx-2">
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <div class="stats-icon blue">
+                                                    <i class="iconly-boldProfile"></i>
+                                                </div>
+                                                <h6 class="font-extrabold mb-0"><?= $data['nama_poll']; ?></h6>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="text-muted font-semibold"><?= $data['waktu']; ?></p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Followers</h6>
-                                        <h6 class="font-extrabold mb-0">183.000</h6>
-                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="xz-card card">
-                            <div class="card-body px-3 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="stats-icon green">
-                                            <i class="iconly-boldAdd-User"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Following</h6>
-                                        <h6 class="font-extrabold mb-0">80.000</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="xz-card card">
-                            <div class="card-body px-3 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="stats-icon red">
-                                            <i class="iconly-boldBookmark"></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <h6 class="text-muted font-semibold">Saved Post</h6>
-                                        <h6 class="font-extrabold mb-0">112</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                    <?php
+                    endforeach; ?>
+
+
+
+
+
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
@@ -98,22 +78,24 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
             <div class="col-12 col-lg-3">
-                <div class="xz-card card">
+                <div class="card">
                     <div class="card-body py-4 px-5 d-flex align-items-center">
                         <div class="d-flex align-items-center">
                             <div class="avatar avatar-xl">
                                 <img src="<?= base_url(); ?>/vendor/images/faces/1.jpg" alt="Face 1">
                             </div>
                             <div class="ms-3 name">
-                                <h5 class="font-bold">Mas Fulan</h5>
-                                <h6 class="text-muted mb-0">@fulantakpamit</h6>
+                                <h5 class="font-bold"><?= session()->get('nama_lengkap'); ?></h5>
+                                <h6 class="text-muted mb-0"><?= session()->get('username'); ?></h6>
                             </div>
                         </div>
                     </div>
+
+                    <a class="m-3 btn btn-danger" href="<?= base_url(); ?>/auth/logout/<?= session()->get('id_admin'); ?>">Logout</a>
                 </div>
                 <!-- <div class="card">
                             <div class="card-header">
@@ -165,17 +147,68 @@
         </section>
     </div>
 
-    <footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <!-- <div class="float-start">
+
+    <!-- Vertically Centered modal Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-nd modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Buat Pemilihan
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="<?= base_url(); ?>/event/save" enctype="multipart/form-data" class="form form-vertical">
+                        <?= csrf_field(); ?>
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6 col-lg-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group mb-4 has-icon-left">
+                                                <label for="first-name-icon">Nama Voting</label>
+                                                <div class="position-relative">
+                                                    <input name="nama_poll" type="text" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                            <i class="bx bx-x d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block">Close</span>
+                                        </button>
+                                        <form action="" id="modalForm" method="POST" class="d-inline">
+                                            <?= csrf_field(); ?>
+                                            <button type="submit" class="btn btn-primary ml-1">
+                                                <i class="bx bx-check d-block d-sm-none"></i>
+                                                <span class="d-none d-sm-block">Buat</span>
+                                            </button>
+                                        </form>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Vertically Centered modal Modal -->
+
+
+                        <footer>
+                            <div class="footer clearfix mb-0 text-muted">
+                                <!-- <div class="float-start">
                         <p>2021 &copy; Mazer</p>
                     </div>
                     <div class="float-end">
                         <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
                     </div> -->
-        </div>
-    </footer>
-</div>
+                            </div>
+                        </footer>
+                </div>
 
 
-<?= $this->endSection('content'); ?>
+                <?= $this->endSection('content'); ?>

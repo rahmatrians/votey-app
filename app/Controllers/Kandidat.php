@@ -3,56 +3,44 @@
 namespace App\Controllers;
 
 use App\Models\KandidatModel;
+use App\Models\EventModel;
 
 class Kandidat extends BaseController
 {
     protected $kandidatModel;
+    protected $eventModel;
 
     public function __construct()
     {
         $this->kandidatModel = new KandidatModel();
-    }
-
-    public function list()
-    {
-        $category = $this->kandidatModel->findAll();
-
-        $data = [
-            'titlePage' => 'Category Data List',
-            'category' => $category
-        ];
-        return view('category/list', $data);
+        $this->eventModel = new EventModel();
     }
 
     public function getById($id)
     {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+
         $kandidat = $this->kandidatModel->find($id);
         $data = [
             'kandidat' => $kandidat,
         ];
 
         echo json_encode($data);
-        // return $data;
     }
 
-    public function detail($id)
+    public function index($id)
     {
-        $category = $this->kandidatModel->find($id);
-        $product = $this->productModel->findAll();
-        $data = [
-            'category' => $category,
-            'product' => $product
-        ];
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
 
-        return view('category/detail', $data);
-    }
-
-    public function index()
-    {
-        $kandidat = $this->kandidatModel->findAll();
+        $kandidat = $this->kandidatModel->where('id_poll', $id)->findAll();
+        $event = $this->eventModel->where('id_poll', $id)->first();
         $data = [
             'kandidat' => $kandidat,
-            'titlePage' => 'Add New Category',
+            'event' => $event,
             'activeStat' => 'active',
             'validation' => \Config\Services::validation()
         ];
@@ -62,11 +50,16 @@ class Kandidat extends BaseController
 
     public function save()
     {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+
         $fotoKandidat = $this->request->getFiles();
         $fileNameKetua = $fotoKandidat['foto_ketua']->getRandomName();
         $fileNameWakil = $fotoKandidat['foto_wakil']->getRandomName();
 
         $this->kandidatModel->save([
+            'id_poll' => $this->request->getVar('id_poll'),
             'nama_ketua' => $this->request->getVar('nama_ketua'),
             'nama_wakil' => $this->request->getVar('nama_wakil'),
             'visi' => $this->request->getVar('visi'),
@@ -86,8 +79,14 @@ class Kandidat extends BaseController
 
     public function edit($id)
     {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+
         $kandidat = $this->kandidatModel->where('id_kandidat', $id)->first();
+        $event = $this->eventModel->where('id_poll', $kandidat['id_poll'])->first();
         $data = [
+            'eventId' => $event['id_poll'],
             'titlePage' => 'Edit Kandidat Data',
             'validation' => \Config\Services::validation(),
             'kandidat' => $kandidat
@@ -97,6 +96,10 @@ class Kandidat extends BaseController
 
     public function update($id)
     {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+
         $fotoKandidat = $this->request->getFiles();
 
         if (empty($fotoKandidat['foto_ketua']->getName()) && empty($fotoKandidat['foto_wakil']->getName())) {
@@ -159,11 +162,15 @@ class Kandidat extends BaseController
         }
 
         session()->setFlashdata('pesan', 'Data success changed');
-        return redirect()->to('kandidat/');
+        return redirect()->to('kandidat/event/' . $this->request->getVar('id_poll'));
     }
 
     public function delete($id)
     {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+
         $this->kandidatModel->delete($id);
         session()->setFlashdata('pesan', 'Data success deleted');
         return redirect()->to('/dataSuara/deleteByKandidat/' . $id);

@@ -8,8 +8,20 @@
         </a>
     </header>
 
-    <div class="page-heading">
-        <h3>Halaman Kandidat</h3>
+    <div class="page-heading d-flex justify-content-between">
+        <h3 class=""><?= $event['nama_poll']; ?></h3>
+
+        <form method="post" action="<?= base_url(); ?>/event/updateStatus/<?= $event['id_poll']; ?>" enctype="multipart/form-data" class="form form-vertical">
+            <?= csrf_field(); ?>
+
+            <?php if ($event['status'] == 0) { ?>
+                <input hidden name="status" value="1" type="text">
+                <button type="submit" class="btn btn-success me-1 mb-1 font-extrabold">Aktifkan</button>
+            <?php } else { ?>
+                <input hidden name="status" value="0" type="text">
+                <button type="submit" class="btn btn-danger me-1 mb-1 font-extrabold">Hentikan</button>
+            <?php } ?>
+
     </div>
 
     <div class="page-content">
@@ -91,6 +103,9 @@
                         <div class="card-body">
                             <form method="post" action="<?= base_url(); ?>/kandidat/save" enctype="multipart/form-data" class="form form-vertical">
                                 <?= csrf_field(); ?>
+
+                                <input hidden name="id_poll" value="<?= $event['id_poll']; ?>" type="text">
+
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-6 col-lg-12 col-sm-12">
@@ -255,9 +270,8 @@
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Close</span>
                     </button>
-                    <form action="<?= base_url(); ?>/kandidat/edit/<?= $data['id_kandidat']; ?>" method="POST" class="d-inline">
+                    <form action="" id="modalForm" method="POST" class="d-inline">
                         <?= csrf_field(); ?>
-                        <input type="hidden" name="_method" value="UPDATE">
                         <button type="submit" class="btn btn-warning ml-1">
                             <i class="bx bx-check d-block d-sm-none"></i>
                             <span class="d-none d-sm-block">Ubah</span>
@@ -282,15 +296,13 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#exampleModalCenter').modal('show');
-                    // $('[name="id_kandidat"]').val(data.id_kandidat);
                     $('#nama_ketua').html(data.kandidat.nama_ketua);
+                    $('#modalForm').attr('action', '<?= base_url(); ?>/kandidat/edit/' + data.kandidat.id_kandidat);
                     $('#nama_wakil').html(data.kandidat.nama_wakil);
                     $('#slogan').html(data.kandidat.slogan);
                     $('#visi').html(data.kandidat.visi);
                     $('#misi').html(data.kandidat.misi);
                     $('[id="program_kerja"]').val(data.kandidat.program_kerja);
-                    // var foto = '<img class="img-circle img-responsive img-kandidat" src="' + base_url + './../assets/img/kandidat/' + data.foto + '">';
-                    // $('#img-kandidat').html(foto);
                 }
             })
             return false;

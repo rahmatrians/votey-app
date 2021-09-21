@@ -23,6 +23,9 @@
                         <div class="card-body">
                             <form method="post" action="<?= base_url(); ?>/kandidat/update/<?= $kandidat['id_kandidat']; ?>" enctype="multipart/form-data" class="form form-vertical">
                                 <?= csrf_field(); ?>
+
+                                <input hidden name="id_poll" value="<?= $eventId; ?>" type="text">
+
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-6 col-lg-12 col-sm-12">

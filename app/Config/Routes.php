@@ -31,10 +31,17 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->delete('kandidat/(:num)', 'Kandidat::delete/$1');
-$routes->get('kandidat/(:num)', 'Kandidat::getById/$1');
-$routes->post('kandidat/edit/(:num)', 'Kandidat::edit/$1');
+$routes->get('/', 'Home::index', ['filter' => 'auth']);
+$routes->get('/kandidat', 'Kandidat::index', ['filter' => 'auth']);
+$routes->get('kandidat/(:num)', 'Kandidat::getById/$1', ['filter' => 'auth']);
+$routes->delete('kandidat/(:num)', 'Kandidat::delete/$1', ['filter' => 'auth']);
+$routes->get('kandidat/(:num)', 'Kandidat::getById/$1', ['filter' => 'auth']);
+$routes->post('kandidat/edit/(:num)', 'Kandidat::edit/$1', ['filter' => 'auth']);
+$routes->get('polling', 'Polling::index', ['filter' => 'auth']);
+$routes->get('polling/voted/(:num)', 'Polling::voted/$1', ['filter' => 'auth']);
+$routes->get('kandidat/event/(:num)', 'Kandidat::index/$1', ['filter' => 'auth']);
+// $routes->get('/event/updateStatus/(:num)', 'Event::updateStatus/$1', ['filter' => 'auth']);
+// $routes->get('kandidat/(:any)', 'Kandidat::index', ['filter' => 'auth']);
 
 /*
  * --------------------------------------------------------------------
