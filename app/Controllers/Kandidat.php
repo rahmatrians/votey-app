@@ -74,7 +74,7 @@ class Kandidat extends BaseController
         $fotoKandidat['foto_wakil']->move('images/kandidat/', $fileNameWakil);
         session()->setFlashdata('pesan', 'Data success added');
 
-        return redirect()->to('/');
+        return redirect()->back();
     }
 
     public function edit($id)

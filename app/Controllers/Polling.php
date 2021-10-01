@@ -51,7 +51,13 @@ class Polling extends BaseController
 
     public function voted()
     {
-        // dd($this->request->getVar('nim'));
+        if (session()->get('role') != 'peserta') {
+            return redirect()->to('/');
+        }
+
+        // $data = $this->dataSuaraModel->where('id_kandidat', $this->request->getVar('id_kandidat'), 'id_poll', $this->request->getVar('id_poll'))->first();
+        // dd($data);
+
         if ($this->dataVotingModel->where('nim', session()->get('nim'))->countAllResults() == 0) {
             $this->dataVotingModel->save([
                 'id_poll' => $this->request->getVar('id_poll'),
@@ -59,10 +65,21 @@ class Polling extends BaseController
                 'date' => date('Y-m-d')
             ]);
 
-            $this->dataSuaraModel->save([
-                'id_kandidat' => $this->request->getVar('id_kandidat'),
-                'id_poll' => $this->request->getVar('id_poll')
-            ]);
+            if ($this->dataSuaraModel->where('id_kandidat', $this->request->getVar('id_kandidat'), 'id_poll', $this->request->getVar('id_poll'))->countAllResults() == 0) {
+                $this->dataSuaraModel->save([
+                    'id_kandidat' => $this->request->getVar('id_kandidat'),
+                    'id_poll' => $this->request->getVar('id_poll'),
+                    'total_suara' => 1
+                ]);
+            } else {
+                $data = $this->dataSuaraModel->where('id_kandidat', $this->request->getVar('id_kandidat'), 'id_poll', $this->request->getVar('id_poll'))->first();
+                $this->dataSuaraModel->save([
+                    'id_suara' => $data['id_suara'],
+                    'id_kandidat' => $this->request->getVar('id_kandidat'),
+                    'id_poll' => $this->request->getVar('id_poll'),
+                    'total_suara' => $data['total_suara'] + 1
+                ]);
+            }
         }
 
 

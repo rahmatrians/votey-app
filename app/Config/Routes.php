@@ -32,6 +32,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index', ['filter' => 'auth']);
+$routes->get('/events', 'Home::events', ['filter' => 'auth']);
 $routes->get('/kandidat', 'Kandidat::index', ['filter' => 'auth']);
 $routes->get('kandidat/(:num)', 'Kandidat::getById/$1', ['filter' => 'auth']);
 $routes->delete('kandidat/(:num)', 'Kandidat::delete/$1', ['filter' => 'auth']);

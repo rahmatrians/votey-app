@@ -26,4 +26,26 @@ class DataSuara extends BaseController
         ];
         return view('product/list', $data);
     }
+
+    public function save($id_kandidat, $id_poll)
+    {
+        $this->dataSuaraModel->save([
+            'id_kandidat' => $id_kandidat,
+            'id_poll' => $id_poll,
+            'total_suara' => 0
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function deleteByKandidat($id)
+    {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+
+        $this->dataSuaraModel->where('id_kandidat', $id)->delete();
+        session()->setFlashdata('pesan', 'Data success deleted');
+        return redirect()->back();
+    }
 }

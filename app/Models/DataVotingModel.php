@@ -8,5 +8,5 @@ class DataVotingModel extends Model
 {
     protected $table = 'data_voting';
     protected $primaryKey = 'id_voting';
-    protected $allowedFields = ['nim', 'date'];
+    protected $allowedFields = ['id_poll', 'nim', 'date'];
 }

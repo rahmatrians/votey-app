@@ -4,7 +4,7 @@
 
 <?= $this->section('content'); ?>
 
-
+ 
 <div class="d-flex align-content-center" style="height: 100vh">
     <div class="mx-auto d-flex align-items-center">
         <div class="d-flex flex-column bd-highlight mb-3">

@@ -8,5 +8,5 @@ class DataSuaraModel extends Model
 {
     protected $table = 'data_suara';
     protected $primaryKey = 'id_suara';
-    protected $allowedFields = ['id_kandidat'];
+    protected $allowedFields = ['id_kandidat', 'id_poll', 'total_suara'];
 }

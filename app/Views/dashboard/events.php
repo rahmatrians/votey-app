@@ -17,73 +17,57 @@
         <section class="row">
             <div class="col-12 col-lg-9">
                 <div class="row">
-
-                    <?php
-                    $x = 0;
-                    foreach ($kandidat as $data) : ?>
-
-                        <div class="col">
-                            <div class="card px-2">
-                                <div class="card-body">
-                                    <div class="mt-3 d-flex justify-content-center">
-                                        <div class="avatar avatar-xl mx-auto">
-                                            <img src="<?= base_url(); ?>/images/kandidat/<?= $data['foto_ketua']; ?>" class="mx-2" alt="Face 1">
-                                            <img src="<?= base_url(); ?>/images/kandidat/<?= $data['foto_wakil']; ?>" class="mx-2" alt="Face 1">
+                    <div class="col-6 col-lg-2 col-md-6">
+                        <a type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                            <div class="xz-card card">
+                                <div class="card-body py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-12 d-flex justify-content-center">
+                                            <div class="stats-icon purple">
+                                                <i class="iconly-boldPlus"></i>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="mt-5">
-                                            <h5 class="font-bold text-center"><?= $data['nama_ketua']; ?> & <?= $data['nama_wakil']; ?></h5>
-                                            <h6 class="text-muted text-center mb-0"><?= $data['slogan']; ?></h6>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <div class="mt-4">
-                                            <h1 class="text-center"><strong><?= $dataSuara[$x]['total_suara']; ?></strong></h1>
+                                        <div class="col-md-12 text-center mt-3">
+                                            <h6 class="font-extrabold mb-0">Buat Pemilihan</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </a>
+                    </div>
+
+                    <?php foreach ($event as $data) :
+                    ?>
+
+                        <div class="col-6 col-lg-4 col-md-6">
+                            <a href="<?= base_url(); ?>/kandidat/event/<?= $data['id_poll']; ?>">
+                                <div class="xz-card card">
+                                    <div class="card-body px-3 py-4-5 mx-2">
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                                <div class="stats-icon blue">
+                                                    <i class="iconly-boldProfile"></i>
+                                                </div>
+                                                <h6 class="font-extrabold mb-0"><?= $data['nama_poll']; ?></h6>
+                                            </div>
+                                            <div class="col-12">
+                                                <p class="text-muted font-semibold"><?= $data['waktu']; ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
 
                     <?php
-                        $x++;
                     endforeach; ?>
 
-                </div>
 
-                <div class="row">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex flex-row bd-highlight mb-3 mt-4">
-                                    <div class="p-2 bd-highlight">
-                                        <h4 class="text-muted d-flex">Telah Memilih</h4>
-                                    </div>
-                                    <div class="p-2 bd-highlight">
-                                        <h4 class="d-flex"><strong>---</strong></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex flex-row bd-highlight mb-3 mt-4">
-                                    <div class="p-2 bd-highlight">
-                                        <h4 class="text-muted d-flex">Belum Memilih</h4>
-                                    </div>
-                                    <div class="p-2 bd-highlight">
-                                        <h4 class="d-flex"><strong>21</strong></h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
+
+
+                </div>
+                <!-- <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
@@ -94,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
             <div class="col-12 col-lg-3">
