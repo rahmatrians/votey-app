@@ -65,21 +65,14 @@ class Polling extends BaseController
                 'date' => date('Y-m-d')
             ]);
 
-            if ($this->dataSuaraModel->where('id_kandidat', $this->request->getVar('id_kandidat'), 'id_poll', $this->request->getVar('id_poll'))->countAllResults() == 0) {
-                $this->dataSuaraModel->save([
-                    'id_kandidat' => $this->request->getVar('id_kandidat'),
-                    'id_poll' => $this->request->getVar('id_poll'),
-                    'total_suara' => 1
-                ]);
-            } else {
-                $data = $this->dataSuaraModel->where('id_kandidat', $this->request->getVar('id_kandidat'), 'id_poll', $this->request->getVar('id_poll'))->first();
-                $this->dataSuaraModel->save([
-                    'id_suara' => $data['id_suara'],
-                    'id_kandidat' => $this->request->getVar('id_kandidat'),
-                    'id_poll' => $this->request->getVar('id_poll'),
-                    'total_suara' => $data['total_suara'] + 1
-                ]);
-            }
+
+            $data = $this->dataSuaraModel->where('id_kandidat', $this->request->getVar('id_kandidat'), 'id_poll', $this->request->getVar('id_poll'))->first();
+            $this->dataSuaraModel->save([
+                'id_suara' => $data['id_suara'],
+                'id_kandidat' => $this->request->getVar('id_kandidat'),
+                'id_poll' => $this->request->getVar('id_poll'),
+                'total_suara' => $data['total_suara'] + 1
+            ]);
         }
 
 

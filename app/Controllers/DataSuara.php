@@ -27,7 +27,7 @@ class DataSuara extends BaseController
         return view('product/list', $data);
     }
 
-    public function save($id_kandidat, $id_poll)
+    public function save($id_poll, $id_kandidat)
     {
         $this->dataSuaraModel->save([
             'id_kandidat' => $id_kandidat,
@@ -35,7 +35,7 @@ class DataSuara extends BaseController
             'total_suara' => 0
         ]);
 
-        return redirect()->back();
+        return redirect()->to(base_url() . '/kandidat/event/' . $id_poll);
     }
 
     public function deleteByKandidat($id)

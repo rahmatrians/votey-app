@@ -72,9 +72,11 @@ class Kandidat extends BaseController
 
         $fotoKandidat['foto_ketua']->move('images/kandidat/', $fileNameKetua);
         $fotoKandidat['foto_wakil']->move('images/kandidat/', $fileNameWakil);
-        session()->setFlashdata('pesan', 'Data success added');
+        // session()->setFlashdata('pesan', 'Data success added');
 
-        return redirect()->back();
+        $LastRowKandidat = $this->kandidatModel->orderBy('id_kandidat', 'DESC')->first();
+
+        return redirect()->to('/dataSuara/save/' . $this->request->getVar('id_poll') . '/' . $LastRowKandidat['id_kandidat']);
     }
 
     public function edit($id)
