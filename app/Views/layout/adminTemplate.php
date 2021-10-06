@@ -7,10 +7,16 @@
     <title>Dashboard - Mazer Admin Dashboard</title>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="<?= base_url(); ?>/vendor/vendors/apexcharts/apexcharts.js"></script>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url(); ?>/vendor/css/bootstrap.css">
+
+    <link rel="stylesheet" href="<?= base_url(); ?>/vendor/vendors/simple-datatables/style.css">
+
+    <!-- Include Choices CSS -->
+    <link rel="stylesheet" href="<?= base_url(); ?>/vendor/vendors/choices.js/choices.min.css" />
 
     <link rel="stylesheet" href="<?= base_url(); ?>/vendor/vendors/iconly/bold.css">
 
@@ -34,7 +40,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="<?= base_url(); ?>/vendor/images/logo/logo.png" alt="Logo" srcset=""></a>
+                            <!-- <a href="index.html"><img src="<?= base_url(); ?>/vendor/images/logo/logo.png" alt="Logo" srcset=""></a> -->
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -59,54 +65,12 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-collection-fill"></i>
-                                <span>Extra Components</span>
+                        <li class="sidebar-item">
+                            <a href="<?= base_url(); ?>/peserta" class='sidebar-link'>
+                                <i class="bi bi-person"></i>
+                                <span>Peserta</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="extra-component-avatar.html">Avatar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-toastify.html">Toastify</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-rating.html">Rating</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="extra-component-divider.html">Divider</a>
-                                </li>
-                            </ul>
                         </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-grid-1x2-fill"></i>
-                                <span>Layouts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="layout-default.html">Default Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-1-column.html">1 Column</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-vertical-navbar.html">Vertical Navbar</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-rtl.html">RTL Layout</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="layout-horizontal.html">Horizontal Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-
                     </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
@@ -127,9 +91,18 @@
     <script src="<?= base_url(); ?>/vendor/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="<?= base_url(); ?>/vendor/js/bootstrap.bundle.min.js"></script>
 
-    <script src="<?= base_url(); ?>/vendor/vendors/apexcharts/apexcharts.js"></script>
     <script src="<?= base_url(); ?>/vendor/js/pages/dashboard.js"></script>
 
+    <script src="<?= base_url(); ?>/vendor/vendors/simple-datatables/simple-datatables.js"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#table1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+
+    <!-- Include Choices JavaScript -->
+    <script src="<?= base_url(); ?>/vendor/vendors/choices.js/choices.min.js"></script>
+    <script src="<?= base_url(); ?>/vendor/js/pages/form-element-select.js"></script>
 
     <script src="<?= base_url(); ?>/vendor/js/main.js"></script>
 </body>

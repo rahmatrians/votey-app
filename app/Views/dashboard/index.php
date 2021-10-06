@@ -11,7 +11,7 @@
     </header>
 
     <div class="page-heading">
-        <h3>Profile Statistics</h3>
+        <h3>Dashboard</h3>
     </div>
     <div class="page-content">
         <section class="row">
@@ -39,6 +39,8 @@
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <div class="mt-4">
+                                            <?php $s[$x] = (int)$dataSuara[$x]['total_suara']; ?>
+
                                             <h1 class="text-center"><strong><?= $dataSuara[$x]['total_suara']; ?></strong></h1>
                                         </div>
                                     </div>
@@ -53,6 +55,17 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Profile Visit</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart"></div>
+                                <!-- <div id="chart-profile-visit"></div> -->
+                            </div>
+                        </div>
+                    </div>
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
@@ -66,8 +79,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex flex-row bd-highlight mb-3 mt-4">
@@ -78,19 +89,6 @@
                                         <h4 class="d-flex"><strong>21</strong></h4>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Profile Visit</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="chart-profile-visit"></div>
                             </div>
                         </div>
                     </div>
@@ -225,6 +223,37 @@
                             </div>
                         </footer>
                 </div>
+
+
+
+
+                <script>
+                    var jArray = <?php echo json_encode($s); ?>;
+                    console.log(jArray);
+                    var options = {
+
+                        series: jArray,
+                        chart: {
+                            width: 380,
+                            type: 'pie',
+                        },
+                        labels: ['Team A', 'Team B', 'Team C'],
+                        responsive: [{
+                            breakpoint: 480,
+                            options: {
+                                chart: {
+                                    width: 200
+                                },
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }]
+                    };
+
+                    var chart = new ApexCharts(document.querySelector("#chart"), options);
+                    chart.render();
+                </script>
 
 
                 <?= $this->endSection('content'); ?>
