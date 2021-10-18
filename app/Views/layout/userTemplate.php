@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Mazer Admin Dashboard</title>
+    <title>E-Voting</title>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -23,6 +23,17 @@
     <style>
         .xz-card {
             height: 350px !important;
+        }
+
+        .poll-card {
+            height: 400px !important;
+        }
+
+        .sec-button {
+            background-color: white;
+            border: 1px solid #3950A2;
+            color: #3950A2;
+            font-weight: bold;
         }
     </style>
 </head>

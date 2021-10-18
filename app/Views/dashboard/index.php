@@ -39,7 +39,8 @@
                                     </div>
                                     <div class="d-flex justify-content-center">
                                         <div class="mt-4">
-                                            <?php $s[$x] = (int)$dataSuara[$x]['total_suara']; ?>
+                                            <?php $total_poll[$x] = (int)$dataSuara[$x]['total_suara']; ?>
+                                            <?php $kandName[$x] = $data['nama_ketua'] . ' & ' . $data['nama_wakil']; ?>
 
                                             <h1 class="text-center"><strong><?= $dataSuara[$x]['total_suara']; ?></strong></h1>
                                         </div>
@@ -58,7 +59,7 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Profile Visit</h4>
+                                <h4>Perbandingan Suara</h4>
                             </div>
                             <div class="card-body">
                                 <div id="chart"></div>
@@ -74,7 +75,7 @@
                                         <h4 class="text-muted d-flex">Telah Memilih</h4>
                                     </div>
                                     <div class="p-2 bd-highlight">
-                                        <h4 class="d-flex"><strong>---</strong></h4>
+                                        <h4 class="d-flex"><strong><?= $totalSuara['total_suara']; ?></strong></h4>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +87,7 @@
                                         <h4 class="text-muted d-flex">Belum Memilih</h4>
                                     </div>
                                     <div class="p-2 bd-highlight">
-                                        <h4 class="d-flex"><strong>21</strong></h4>
+                                        <h4 class="d-flex"><strong><?= $totalPeserta - $totalSuara['total_suara']; ?></strong></h4>
                                     </div>
                                 </div>
                             </div>
@@ -228,16 +229,17 @@
 
 
                 <script>
-                    var jArray = <?php echo json_encode($s); ?>;
-                    console.log(jArray);
+                    var total_poll_array = <?php echo json_encode($total_poll); ?>;
+                    var kandName_array = <?php echo json_encode($kandName); ?>;
+                    // console.log(total_poll_array);
                     var options = {
 
-                        series: jArray,
+                        series: total_poll_array,
                         chart: {
                             width: 380,
                             type: 'pie',
                         },
-                        labels: ['Team A', 'Team B', 'Team C'],
+                        labels: kandName_array,
                         responsive: [{
                             breakpoint: 480,
                             options: {
