@@ -18,6 +18,7 @@ class Home extends BaseController
         $this->kandidatModel = new KandidatModel();
         $this->dataSuaraModel = new DataSuaraModel();
         $this->pesertaModel = new PesertaModel();
+        $this->dataVotingModel = new DataVotingModel();
     }
     public function index()
     {
@@ -30,6 +31,9 @@ class Home extends BaseController
         $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
         $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
         $totalPeserta = $this->pesertaModel->countAllResults();
+        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
+
+        // dd($totalPemilihByProdi);
 
         $data = [
             'event' => $eventData,
@@ -37,6 +41,7 @@ class Home extends BaseController
             'kandidat' => $kandidatData,
             'totalSuara' => $totalSuara,
             'totalPeserta' => $totalPeserta,
+            'totalPemilihByProdi' => $totalPemilihByProdi,
         ];
         // dd($data);
         return view('dashboard/index', $data);
@@ -50,6 +55,7 @@ class Home extends BaseController
 
         $data = [
             'event' => $this->eventModel->findAll(),
+            'validation' => \Config\Services::validation()
         ];
 
         return view('dashboard/events', $data);

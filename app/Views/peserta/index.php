@@ -87,9 +87,12 @@
                                                     <div class="form-group mb-4 has-icon-left">
                                                         <label for="first-name-icon">NIM Peserta</label>
                                                         <div class="position-relative">
-                                                            <input name="nim" type="number" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
+                                                            <input name="nim" value="<?= old('nim'); ?>" type="number" class="form-control <?= ($validation->hasError('nim') ? 'is-invalid' : '') ?>" placeholder="Ketikkan di sini..." id="first-name-icon">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-person"></i>
+                                                            </div>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('nim'); ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -99,9 +102,12 @@
                                                     <div class="form-group mb-4 has-icon-left">
                                                         <label for="first-name-icon">Nama Lengkap</label>
                                                         <div class="position-relative">
-                                                            <input name="nama_lengkap" type="text" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
+                                                            <input name="nama_lengkap" value="<?= old('nama_lengkap'); ?>" type="text" class="form-control <?= ($validation->hasError('nama_lengkap') ? 'is-invalid' : '') ?>" placeholder="Ketikkan di sini..." id="first-name-icon">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-person"></i>
+                                                            </div>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('nama_lengkap'); ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -111,9 +117,12 @@
                                                     <div class="form-group mb-4 has-icon-left">
                                                         <label for="first-name-icon">Tanggal Lahir</label>
                                                         <div class="position-relative">
-                                                            <input name="tgl_lahir" type="date" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
+                                                            <input name="tgl_lahir" value="<?= old('tgl_lahir'); ?>" type="date" class="form-control <?= ($validation->hasError('tgl_lahir') ? 'is-invalid' : '') ?>" placeholder="Ketikkan di sini..." id="first-name-icon">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-calendar"></i>
+                                                            </div>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('tgl_lahir'); ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -122,7 +131,7 @@
                                                 <div class="col-12">
                                                     <div class="form-group mb-4 has-icon-left">
                                                         <label for="first-name-icon">Prodi</label>
-                                                        <select name="prodi" class="choices form-select">
+                                                        <select name="prodi" value="<?= old('prodi'); ?>" class="choices form-select <?= ($validation->hasError('prodi') ? 'is-invalid' : '') ?>">
                                                             <option value="">-- Pilih Prodi --</option>
 
                                                             <?php foreach ($prodi as $data) : ?>
@@ -132,6 +141,9 @@
                                                             <?php endforeach ?>
 
                                                         </select>
+                                                        <div class="invalid-tooltip">
+                                                            <?= $validation->showError('prodi'); ?>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

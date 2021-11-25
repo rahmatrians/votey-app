@@ -1,7 +1,24 @@
 <?= $this->extend('layout/adminTemplate'); ?>
 
+<?php
+
+$namaProdi = [];
+$totalVoteByProdi = [];
+
+for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
+    $prodi[$x] = $totalPemilihByProdi[$x]['nama_prodi'];
+}
+
+for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
+    $totalVoteByProdi[$x] = $totalPemilihByProdi[$x]['total'];
+}
+
+?>
+
 
 <?= $this->section('content'); ?>
+
+
 
 <div id="main">
     <header class="mb-3">
@@ -23,7 +40,7 @@
                     foreach ($kandidat as $data) : ?>
 
                         <div class="col">
-                            <div class="card px-2">
+                            <div class="card px-2" style="min-height: 350px;">
                                 <div class="card-body">
                                     <div class="mt-3 d-flex justify-content-center">
                                         <div class="avatar avatar-xl mx-auto">
@@ -57,13 +74,23 @@
 
                 <div class="row">
                     <div class="col-6">
-                        <div class="card">
+                        <div class="card" style="min-height: 500px;">
                             <div class="card-header">
                                 <h4>Perbandingan Suara</h4>
                             </div>
                             <div class="card-body">
                                 <div id="chart"></div>
                                 <!-- <div id="chart-profile-visit"></div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card" style="min-height: 500px;">
+                            <div class="card-header">
+                                <h4>Perbandingan Suara</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="barChart"></div>
                             </div>
                         </div>
                     </div>
@@ -163,99 +190,111 @@
     </div>
 
 
-    <!-- Vertically Centered modal Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-nd modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">Buat Pemilihan
-                    </h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form method="post" action="<?= base_url(); ?>/event/save" enctype="multipart/form-data" class="form form-vertical">
-                        <?= csrf_field(); ?>
-                        <div class="form-body">
-                            <div class="row">
-                                <div class="col-md-6 col-lg-12 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group mb-4 has-icon-left">
-                                                <label for="first-name-icon">Nama Voting</label>
-                                                <div class="position-relative">
-                                                    <input name="nama_poll" type="text" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-pencil"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
-                                            <i class="bx bx-x d-block d-sm-none"></i>
-                                            <span class="d-none d-sm-block">Close</span>
-                                        </button>
-                                        <form action="" id="modalForm" method="POST" class="d-inline">
-                                            <?= csrf_field(); ?>
-                                            <button type="submit" class="btn btn-primary ml-1">
-                                                <i class="bx bx-check d-block d-sm-none"></i>
-                                                <span class="d-none d-sm-block">Buat</span>
-                                            </button>
-                                        </form>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Vertically Centered modal Modal -->
 
 
-                        <footer>
-                            <div class="footer clearfix mb-0 text-muted">
-                                <!-- <div class="float-start">
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+            <!-- <div class="float-start">
                         <p>2021 &copy; Mazer</p>
                     </div>
                     <div class="float-end">
                         <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
                     </div> -->
-                            </div>
-                        </footer>
-                </div>
+        </div>
+    </footer>
+</div>
 
 
+<script>
+    // -- -- -- --pie chart-- -- -- --
+    var total_poll_array = <?php echo json_encode($total_poll); ?>;
+    var kandName_array = <?php echo json_encode($kandName); ?>;
+    var prodi_array = <?php echo json_encode($prodi); ?>;
+    var totalVoteByProdi_array = <?php echo json_encode($totalVoteByProdi); ?>;
+    // console.log(total_poll_array);
+    var options = {
+
+        series: total_poll_array,
+        chart: {
+            width: 380,
+            type: 'pie',
+        },
+        labels: kandName_array,
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
 
 
-                <script>
-                    var total_poll_array = <?php echo json_encode($total_poll); ?>;
-                    var kandName_array = <?php echo json_encode($kandName); ?>;
-                    // console.log(total_poll_array);
-                    var options = {
+    //  -------- bar chart  -------- 
+    var colors = [
+        "#F3B415",
+        "#F27036",
+        "#663F59",
+        "#6A6E94",
+        "#4E88B4",
+        "#00A7C6",
+        "#18D8D8",
+        "#A9D794",
+        "#46AF78",
+        "#A93F55",
+        "#8C5E58",
+        "#2176FF",
+        "#33A1FD",
+        "#7A918D",
+        "#BAFF29"
+    ];
+    var options = {
+        series: [{
+            data: totalVoteByProdi_array
+        }],
+        chart: {
+            height: 350,
+            type: 'bar',
+            events: {
+                click: function(chart, w, e) {
+                    // console.log(chart, w, e)
+                }
+            }
+        },
+        colors: colors,
+        plotOptions: {
+            bar: {
+                columnWidth: '45%',
+                distributed: true,
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        legend: {
+            show: false
+        },
+        xaxis: {
+            categories: prodi_array,
+            labels: {
+                style: {
+                    colors: colors,
+                    fontSize: '12px'
+                }
+            }
+        }
+    };
 
-                        series: total_poll_array,
-                        chart: {
-                            width: 380,
-                            type: 'pie',
-                        },
-                        labels: kandName_array,
-                        responsive: [{
-                            breakpoint: 480,
-                            options: {
-                                chart: {
-                                    width: 200
-                                },
-                                legend: {
-                                    position: 'bottom'
-                                }
-                            }
-                        }]
-                    };
-
-                    var chart = new ApexCharts(document.querySelector("#chart"), options);
-                    chart.render();
-                </script>
+    var chart = new ApexCharts(document.querySelector("#barChart"), options);
+    chart.render();
+</script>
 
 
-                <?= $this->endSection('content'); ?>
+<?= $this->endSection('content'); ?>

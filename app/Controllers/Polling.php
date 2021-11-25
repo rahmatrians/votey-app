@@ -44,7 +44,15 @@ class Polling extends BaseController
                 return view('polling/voted', $data);
             }
         } else {
-            $data = ['message' => "Kamu Sudah memilih!"];
+            $eventData = $this->eventModel->where('status', 1)->first();
+            $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
+            $dataSuara = $this->dataSuaraModel->where('id_poll', $eventData['id_poll'])->findAll();
+            $data = [
+                'event' => $eventData,
+                'kandidat' => $kandidatData,
+                'dataSuara' => $dataSuara,
+                'message' => "Kamu Sudah memilih!"
+            ];
             return view('polling/voted', $data);
         }
     }

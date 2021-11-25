@@ -39,6 +39,16 @@ class Peserta extends BaseController
             return redirect()->to('/polling');
         }
 
+        if (!$this->validate([
+            'nim' => 'required',
+            'nama_lengkap' => 'required',
+            'id_prodi' => 'required',
+            'tgl_lahir' => 'required',
+            'password' => 'required',
+        ])) {
+            $validation = \Config\Services::validation();
+            return redirect()->back()->withInput()->with('validation', $validation);
+        }
 
         $explode = explode("-", $this->request->getVar('tgl_lahir'));
         $newPass = implode($explode);

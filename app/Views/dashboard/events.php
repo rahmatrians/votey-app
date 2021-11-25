@@ -170,9 +170,12 @@
                                             <div class="form-group mb-4 has-icon-left">
                                                 <label for="first-name-icon">Nama Voting</label>
                                                 <div class="position-relative">
-                                                    <input name="nama_poll" type="text" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
+                                                    <input name="nama_poll" type="text" class="form-control <?= ($validation->hasError('nama_poll') ? 'is-invalid' : '') ?>" placeholder="Ketikkan di sini..." id="first-name-icon">
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-pencil"></i>
+                                                    </div>
+                                                    <div class="invalid-tooltip">
+                                                        <?= $validation->showError('nama_poll'); ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -195,20 +198,23 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Vertically Centered modal Modal -->
+                </div>
+            </div>
+            <!-- Vertically Centered modal Modal -->
 
 
-                        <footer>
-                            <div class="footer clearfix mb-0 text-muted">
-                                <!-- <div class="float-start">
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <!-- <div class="float-start">
                         <p>2021 &copy; Mazer</p>
                     </div>
                     <div class="float-end">
                         <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
                     </div> -->
-                            </div>
-                        </footer>
                 </div>
+            </footer>
+        </div>
+    </div>
 
 
-                <?= $this->endSection('content'); ?>
+    <?= $this->endSection('content'); ?>

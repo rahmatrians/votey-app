@@ -115,9 +115,12 @@
                                                     <div class="form-group mb-4 has-icon-left">
                                                         <label for="first-name-icon">Nama Calon Ketua</label>
                                                         <div class="position-relative">
-                                                            <input name="nama_ketua" type="text" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
+                                                            <input name="nama_ketua" value="<?= old('nama_ketua'); ?>" type="text" class="form-control <?= ($validation->hasError('nama_ketua') ? 'is-invalid' : '') ?>" placeholder="Ketikkan di sini..." id="first-name-icon">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-person"></i>
+                                                            </div>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('nama_ketua'); ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -127,9 +130,12 @@
                                                     <div class="form-group mb-4 has-icon-left">
                                                         <label for="first-name-icon">Nama Calon Wakil Ketua</label>
                                                         <div class="position-relative">
-                                                            <input name="nama_wakil" type="text" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
+                                                            <input name="nama_wakil" value="<?= old('nama_wakil'); ?>" type="text" class="form-control <?= ($validation->hasError('nama_wakil') ? 'is-invalid' : '') ?>" placeholder="Ketikkan di sini..." id="first-name-icon">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-person"></i>
+                                                            </div>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('nama_wakil'); ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -138,22 +144,27 @@
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">Foto Calon Ketua</label>
-                                                        <input name="foto_ketua" class="form-control" type="file" id="formFile">
+                                                        <input name="foto_ketua" value="<?= old('foto_ketua'); ?>" class="form-control <?= ($validation->hasError('foto_ketua') ? 'is-invalid' : '') ?>" type="file" id="formFile">
+                                                        <div class="invalid-feedback"><?= $validation->showError('foto_ketua'); ?></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">Foto Calon Wakil Ketua</label>
-                                                        <input name="foto_wakil" class="form-control" type="file" id="formFile">
+                                                        <input name="foto_wakil" value="<?= old('foto_wakil'); ?>" class="form-control <?= ($validation->hasError('foto_wakil') ? 'is-invalid' : '') ?>" type="file" id="formFile">
+                                                        <div class="invalid-feedback"><?= $validation->showError('foto_wakil'); ?></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
                                                     <div class="form-group mb-4 has-icon-left">
                                                         <label for="first-name-icon">Slogan</label>
                                                         <div class="position-relative">
-                                                            <input name="slogan" type="text" class="form-control" placeholder="Ketikkan di sini..." id="first-name-icon">
+                                                            <input name="slogan" value="<?= old('slogan'); ?>" type="text" class="form-control <?= ($validation->hasError('slogan') ? 'is-invalid' : '') ?>" placeholder="Ketikkan di sini..." id="first-name-icon">
                                                             <div class="form-control-icon">
                                                                 <i class="bi bi-chat"></i>
+                                                            </div>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('slogan'); ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -169,7 +180,10 @@
                                                     <div class="form-group mb-4">
                                                         <label for="first-name-icon">Visi</label>
                                                         <div class="form-floating">
-                                                            <textarea name="visi" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                                            <textarea name="visi" class="form-control <?= ($validation->hasError('visi') ? 'is-invalid' : '') ?>" placeholder="Leave a comment here" id="floatingTextarea"><?= old('visi'); ?></textarea>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('visi'); ?>
+                                                            </div>
                                                             <label for="floatingTextarea">Ketikkan di sini...</label>
                                                         </div>
                                                     </div>
@@ -179,7 +193,10 @@
                                                     <div class="form-group mb-4">
                                                         <label for="first-name-icon">Misi</label>
                                                         <div class="form-floating">
-                                                            <textarea name="misi" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                                            <textarea name="misi" class="form-control <?= ($validation->hasError('misi') ? 'is-invalid' : '') ?>" placeholder="Leave a comment here" id="floatingTextarea"><?= old('misi'); ?></textarea>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('misi'); ?>
+                                                            </div>
                                                             <label for="floatingTextarea">Ketikkan di sini...</label>
                                                         </div>
                                                     </div>
@@ -189,7 +206,10 @@
                                                     <div class="form-group mb-4">
                                                         <label for="first-name-icon">Program Kerja</label>
                                                         <div class="form-floating">
-                                                            <textarea name="program_kerja" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                                            <textarea name="program_kerja" value="<?= old('program_kerja'); ?>" class="form-control <?= ($validation->hasError('program_kerja') ? 'is-invalid' : '') ?>" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                                                            <div class="invalid-tooltip">
+                                                                <?= $validation->showError('program_kerja'); ?>
+                                                            </div>
                                                             <label for="floatingTextarea">Ketikkan di sini...</label>
                                                         </div>
                                                     </div>

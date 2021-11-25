@@ -1,0 +1,8 @@
+visualisasi
+- chart untuk menampilkan persentase banyak yang telah voting berdasarkan prodi
+- chart untuk menampilkan jumlah peserta yang golput
+
+report
+- tabel untuk menampilkan data para kandidat
+- chart dan tabel untuk menampilkan persentase banyak yang telah voting berdasarkan prodi
+- chart dan tabel untuk menampilkan jumlah peserta yang golput

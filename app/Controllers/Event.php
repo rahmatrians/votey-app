@@ -39,6 +39,13 @@ class Event extends BaseController
             return redirect()->to('/polling');
         }
 
+        if (!$this->validate([
+            'nama_poll' => 'required'
+        ])) {
+            $validation = \Config\Services::validation();
+            return redirect()->back()->withInput()->with('validation', $validation);
+        }
+
         $this->eventModel->save([
             'nama_poll' => $this->request->getVar('nama_poll'),
             'waktu' => date('Y-m-d'),

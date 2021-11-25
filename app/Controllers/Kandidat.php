@@ -54,6 +54,20 @@ class Kandidat extends BaseController
             return redirect()->to('/polling');
         }
 
+        if (!$this->validate([
+            'nama_ketua' => 'required',
+            'nama_wakil' => 'required',
+            'foto_ketua' => 'required',
+            'foto_wakil' => 'required',
+            'visi' => 'required',
+            'misi' => 'required',
+            'program_kerja' => 'required',
+            'slogan' => 'required',
+        ])) {
+            $validation = \Config\Services::validation();
+            return redirect()->back()->withInput()->with('validation', $validation);
+        }
+
         $fotoKandidat = $this->request->getFiles();
         $fileNameKetua = $fotoKandidat['foto_ketua']->getRandomName();
         $fileNameWakil = $fotoKandidat['foto_wakil']->getRandomName();
