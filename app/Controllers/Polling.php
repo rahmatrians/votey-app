@@ -31,16 +31,24 @@ class Polling extends BaseController
             return redirect()->to('/');
         }
 
-        if ($this->dataVotingModel->where('nim', session()->get('nim'))->countAllResults() == 0) {
+        $getEvent = $this->eventModel->where('status', 1)->first();
+        if ($getEvent != NULL) {
 
-            $getEvent = $this->eventModel->where('status', 1)->first();
-            if ($getEvent != NULL) {
+            if ($this->dataVotingModel->where('nim', session()->get('nim'))->where('id_poll', $getEvent['id_poll'])->countAllResults() == 0) {
                 $data = [
                     'kandidat' => $this->kandidatModel->where('id_poll', $getEvent['id_poll'])->findAll(),
                 ];
                 return view('polling/index', $data);
             } else {
-                $data = ['message' => "Tidak Ada Pemilihan!"];
+                $eventData = $this->eventModel->where('status', 1)->first();
+                $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
+                $dataSuara = $this->dataSuaraModel->where('id_poll', $eventData['id_poll'])->findAll();
+                $data = [
+                    'event' => $eventData,
+                    'kandidat' => $kandidatData,
+                    'dataSuara' => $dataSuara,
+                    'message' => "Kamu Sudah memilih!"
+                ];
                 return view('polling/voted', $data);
             }
         } else {
@@ -57,6 +65,20 @@ class Polling extends BaseController
         }
     }
 
+    public function getKandidatById($id)
+    {
+        if (session()->get('role') != 'peserta') {
+            return redirect()->to('/polling');
+        }
+
+        $kandidat = $this->kandidatModel->find($id);
+        $data = [
+            'kandidat' => $kandidat,
+        ];
+
+        echo json_encode($data);
+    }
+
     public function voted()
     {
         if (session()->get('role') != 'peserta') {
@@ -66,7 +88,9 @@ class Polling extends BaseController
         // $data = $this->dataSuaraModel->where('id_kandidat', $this->request->getVar('id_kandidat'), 'id_poll', $this->request->getVar('id_poll'))->first();
         // dd($data);
 
-        if ($this->dataVotingModel->where('nim', session()->get('nim'))->countAllResults() == 0) {
+
+        $getEvent = $this->eventModel->where('status', 1)->first();
+        if ($this->dataVotingModel->where('nim', session()->get('nim'))->where('id_poll', $getEvent['id_poll'])->countAllResults() == 0) {
             $this->dataVotingModel->save([
                 'id_poll' => $this->request->getVar('id_poll'),
                 'nim' => $this->request->getVar('nim'),
@@ -75,12 +99,14 @@ class Polling extends BaseController
 
 
             $data = $this->dataSuaraModel->where('id_kandidat', $this->request->getVar('id_kandidat'), 'id_poll', $this->request->getVar('id_poll'))->first();
-            $this->dataSuaraModel->save([
-                'id_suara' => $data['id_suara'],
-                'id_kandidat' => $this->request->getVar('id_kandidat'),
-                'id_poll' => $this->request->getVar('id_poll'),
-                'total_suara' => $data['total_suara'] + 1
-            ]);
+            if ($data) {
+                $this->dataSuaraModel->save([
+                    'id_suara' => $data['id_suara'],
+                    'id_kandidat' => $this->request->getVar('id_kandidat'),
+                    'id_poll' => $this->request->getVar('id_poll'),
+                    'total_suara' => $data['total_suara'] + 1
+                ]);
+            }
         }
 
 

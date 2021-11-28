@@ -44,7 +44,7 @@
                                         <input hidden name="id_poll" value="<?= $data['id_poll']; ?>" type="text">
                                         <div class="m-3 mt-auto d-flex flex-column">
                                             <button type="submit" class="my-1 btn btn-primary">Pilih</button>
-                                            <a href="" class="my-1 btn sec-button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">Visi Misi</a>
+                                            <a href="" class="my-1 btn sec-button visi-misi" data="<?= $data['id_kandidat']; ?>">Visi Misi</a>
                                         </div>
 
                                     </div>
@@ -72,8 +72,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p><?= $kandidat[0]['visi']; ?></p>
-                    <p><?= $kandidat[0]['misi']; ?></p>
+                    <h6><b>Visi</b></h6>
+                    <p id="visi">-</p>
+                    <h6><b>Misi</b></h5>
+                        <p id="misi">-</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -99,7 +101,24 @@
 </div>
 
 <script>
-    var visi = 'di test aja gan';
+    $(document).ready(function() {
+        $('.visi-misi').on('click', function() {
+            var id = $(this).attr('data');
+            // console.log(id);
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url(); ?>/polling/getKandidatById/' + id,
+                dataType: 'json',
+                success: function(data) {
+                    $('#exampleModalCenter').modal('show');
+                    $('#slogan').html(data.kandidat.slogan);
+                    $('#visi').html(data.kandidat.visi);
+                    $('#misi').html(data.kandidat.misi);
+                }
+            })
+            return false;
+        })
+    })
 </script>
 
 <?= $this->endSection('content'); ?>

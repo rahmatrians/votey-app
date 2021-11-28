@@ -58,8 +58,8 @@
                                                     </td>
                                                     <td class="col-2">
                                                         <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-xl">
-                                                                <img src="<?= base_url(); ?>/vendor/images/faces/5.jpg">
+                                                            <div class="avatar avatar-xl mx-auto">
+                                                                <img src="<?= base_url(); ?>/images/kandidat/<?= $data['foto_ketua']; ?>" class="mx-2" alt="Face 1">
                                                             </div>
                                                         </div>
                                                     </td>

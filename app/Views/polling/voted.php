@@ -31,10 +31,6 @@
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <div class="mt-4">
-                                        <?php $total_poll[$x] = (int)$dataSuara[$x]['total_suara']; ?>
-                                        <?php $kandName[$x] = $data['nama_ketua'] . ' & ' . $data['nama_wakil']; ?>
-
-                                        <h1 class="text-center"><strong><?= $dataSuara[$x]['total_suara']; ?></strong></h1>
                                     </div>
                                 </div>
                             </div>

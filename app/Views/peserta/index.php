@@ -131,7 +131,7 @@
                                                 <div class="col-12">
                                                     <div class="form-group mb-4 has-icon-left">
                                                         <label for="first-name-icon">Prodi</label>
-                                                        <select name="prodi" value="<?= old('prodi'); ?>" class="choices form-select <?= ($validation->hasError('prodi') ? 'is-invalid' : '') ?>">
+                                                        <select name="id_prodi" value="<?= old('prodi'); ?>" class="choices form-select <?= ($validation->hasError('prodi') ? 'is-invalid' : '') ?>">
                                                             <option value="">-- Pilih Prodi --</option>
 
                                                             <?php foreach ($prodi as $data) : ?>

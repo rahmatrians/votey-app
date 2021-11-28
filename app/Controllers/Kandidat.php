@@ -4,16 +4,20 @@ namespace App\Controllers;
 
 use App\Models\KandidatModel;
 use App\Models\EventModel;
+use App\Models\dataSuaraModel;
+
 
 class Kandidat extends BaseController
 {
     protected $kandidatModel;
     protected $eventModel;
+    protected $dataSuaraModel;
 
     public function __construct()
     {
         $this->kandidatModel = new KandidatModel();
         $this->eventModel = new EventModel();
+        $this->dataSuaraModel = new dataSuaraModel();
     }
 
     public function getById($id)
@@ -186,9 +190,9 @@ class Kandidat extends BaseController
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
         }
-
+        $this->dataSuaraModel->where('id_kandidat', $id)->delete();
         $this->kandidatModel->delete($id);
         session()->setFlashdata('pesan', 'Data success deleted');
-        return redirect()->to('/dataSuara/deleteByKandidat/' . $id);
+        return redirect()->back();
     }
 }

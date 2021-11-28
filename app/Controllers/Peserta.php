@@ -39,12 +39,13 @@ class Peserta extends BaseController
             return redirect()->to('/polling');
         }
 
+        // dd($this->request->getVar());
+
         if (!$this->validate([
             'nim' => 'required',
             'nama_lengkap' => 'required',
             'id_prodi' => 'required',
             'tgl_lahir' => 'required',
-            'password' => 'required',
         ])) {
             $validation = \Config\Services::validation();
             return redirect()->back()->withInput()->with('validation', $validation);
@@ -56,7 +57,7 @@ class Peserta extends BaseController
         $this->pesertaModel->save([
             'nim' => $this->request->getVar('nim'),
             'nama_lengkap' => $this->request->getVar('nama_lengkap'),
-            'id_prodi' => $this->request->getVar('prodi'),
+            'id_prodi' => $this->request->getVar('id_prodi'),
             'tgl_lahir' => $this->request->getVar('tgl_lahir'),
             'password' => $newPass
         ]);
