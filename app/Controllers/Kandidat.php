@@ -54,11 +54,11 @@ class Kandidat extends BaseController
             return redirect()->to('/polling');
         }
 
+        // dd($this->request->getFiles());
+
         if (!$this->validate([
             'nama_ketua' => 'required',
             'nama_wakil' => 'required',
-            'foto_ketua' => 'required',
-            'foto_wakil' => 'required',
             'visi' => 'required',
             'misi' => 'required',
             'program_kerja' => 'required',

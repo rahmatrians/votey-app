@@ -87,7 +87,7 @@ for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
                     <div class="col-6">
                         <div class="card" style="min-height: 500px;">
                             <div class="card-header">
-                                <h4>Perbandingan Suara</h4>
+                                <h4>Pemilih Berdasarkan Prodi</h4>
                             </div>
                             <div class="card-body">
                                 <div id="barChart"></div>

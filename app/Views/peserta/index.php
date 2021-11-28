@@ -9,7 +9,7 @@
     </header>
 
     <div class="page-heading d-flex justify-content-between">
-        <h3 class="">--</h3>
+        <h3 class="">Peserta</h3>
     </div>
 
     <div class="page-content">

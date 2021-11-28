@@ -82,14 +82,14 @@ for ($i = 1; $i < 2; $i++) {
 }
 
 $xlsx = SimpleXLSXGen::fromArray($xls);
-$xlsx->downloadAs('file.xlsx');; ?>
+$xlsx->downloadAs('Laporan Pemilih Berdasarkan Prodi.xlsx'); ?>
 
 
 <script>
     window.addEventListener("load", function() {
         setTimeout(function() {
-            window.location.href = 'http://localhost:8080/';
-        }, 5000);
+            window.location.href = 'http://localhost:8080/report/';
+        }, 1000);
     });
 </script>
 

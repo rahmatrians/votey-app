@@ -1,33 +1,26 @@
 <?= $this->extend('layout/reportTemplate'); ?>
 
+<?php
+for ($x = 0; $x < count($pesertaGolput); $x++) {
+    $golput[$x] = $pesertaGolput[$x]['nim'];
+}
+
+$dataGolput = [
+    $totalGolput,
+    $totalPeserta,
+];
+?>
+
 
 <?= $this->section('content'); ?>
-
-<?php
-
-$namaProdi = [];
-$totalVoteByProdi = [];
-
-for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
-    $prodi[$x] = $totalPemilihByProdi[$x]['nama_prodi'];
-}
-
-for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
-    $totalVoteByProdi[$x] = $totalPemilihByProdi[$x]['total'];
-}
-
-?>
 
 
 <!-- <button onclick="generatePDF()">Download as PDF</button> -->
 <div class="container" id="invoice">
     <div class="row">
-        <div class="col-12">
-        </div>
-
         <div class="col">
-            <h2 class="text-center mt-5">Laporan Mahasiswa yang Telah Voting</h2>
-            <div onload="generatePDF()" class="col-3 mx-auto mt-5" id="barChart"></div>
+            <h2 class="text-center mt-5">Laporan Peserta yang Tidak Memilih</h2>
+            <div onload="generatePDF()" class="col-3 mx-auto mt-5" id="donutChart"></div>
 
             <section class="section col-10 mt-5 mx-auto">
                 <div class="table-responsive">
@@ -35,22 +28,22 @@ for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th class="text-center">NIM</th>
+                                <th>NIM</th>
                                 <th>Nama Lengkap</th>
-                                <th class="text-center">Prodi</th>
+                                <th>Prodi</th>
                             </tr>
                         </thead>
                         <tbody>
 
                             <?php
                             $x = 0;
-                            foreach ($pesertaPemilih as $data) : ?>
+                            foreach ($pesertaGolput as $data) : ?>
 
                                 <tr>
                                     <td class=""><?= $x + 1; ?></td>
-                                    <td class=""><?= $pesertaPemilih[$x]['nim']; ?></td>
-                                    <td class=""><?= $pesertaPemilih[$x]['nama_lengkap']; ?></td>
-                                    <td class=""><?= $pesertaPemilih[$x]['nama_prodi']; ?></td>
+                                    <td class=""><?= $data['nim']; ?></td>
+                                    <td class=""><?= $data['nama_lengkap']; ?></td>
+                                    <td class=""><?= $data['nama_prodi']; ?></td>
                                 </tr>
 
                             <?php
@@ -69,14 +62,7 @@ for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
 
 
 <script>
-    // -- -- -- --pie chart-- -- -- --
-    var prodi_array = <?php echo json_encode($prodi); ?>;
-    var totalVoteByProdi_array = <?php echo json_encode($totalVoteByProdi); ?>;
-    // console.log(total_poll_array);
-
-
-
-    //  -------- bar chart  -------- 
+    var golput_array = <?php echo json_encode($dataGolput); ?>;
     var colors = [
         "#F3B415",
         "#F27036",
@@ -94,47 +80,32 @@ for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
         "#7A918D",
         "#BAFF29"
     ];
+
+    // --------------------------- donut chart ----------------------------
+
     var options = {
-        series: [{
-            data: totalVoteByProdi_array
-        }],
+        series: golput_array,
         chart: {
             animations: {
                 enabled: false,
             },
-            height: 350,
-            type: 'bar',
-            events: {
-                click: function(chart, w, e) {
-                    // console.log(chart, w, e)
+            type: 'donut',
+        },
+        labels: ['Total Belum Memilih', 'Total Telah Memililh'],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
                 }
             }
-        },
-        colors: colors,
-        plotOptions: {
-            bar: {
-                columnWidth: '45%',
-                distributed: true,
-            }
-        },
-        dataLabels: {
-            enabled: false
-        },
-        legend: {
-            show: false
-        },
-        xaxis: {
-            categories: prodi_array,
-            labels: {
-                style: {
-                    colors: colors,
-                    fontSize: '12px'
-                }
-            }
-        }
+        }]
     };
 
-    var chart = new ApexCharts(document.querySelector("#barChart"), options);
+    var chart = new ApexCharts(document.querySelector("#donutChart"), options);
     chart.render();
 </script>
 
@@ -150,5 +121,6 @@ for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
         }
     });
 </script>
+
 
 <?= $this->endSection('content'); ?>

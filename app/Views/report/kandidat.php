@@ -28,7 +28,7 @@
 
             <section class="section col-6 mt-5 mx-auto">
                 <div class="table-responsive">
-                    <table class="table table-striped mb-0">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -165,17 +165,10 @@
         // Choose the element and save the PDF for our user.
         if (html2pdf().from(element).save()) {
             setTimeout(function() {
-                window.location.href = 'http://localhost:8080/';
-            }, 5000);
+                window.location.href = 'http://localhost:8080/report/';
+            }, 1000);
         }
     });
-
-    // function generatePDF() {
-    //     // Choose the element that our invoice is rendered in.
-    //     const element = document.getElementById('invoice');
-    //     // Choose the element and save the PDF for our user.
-    //     html2pdf().from(element).save();
-    // }
 </script>
 
 

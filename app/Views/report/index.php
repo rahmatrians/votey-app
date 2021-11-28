@@ -19,8 +19,8 @@ for ($x = 0; $x < count($pesertaGolput); $x++) {
 }
 
 $dataGolput = [
-    $totalPeserta,
     $totalGolput,
+    $totalPeserta,
 ];
 
 ?>
@@ -82,7 +82,7 @@ $dataGolput = [
                             <div class="row">
                                 <div class="col-6">
                                     <div class="card-header">
-                                        <h4>Perbandingan Suara</h4>
+                                        <h4>Pemilih Berdasarkan Prodi</h4>
                                     </div>
                                     <div class="card-body">
                                         <div id="barChart"></div>
@@ -102,7 +102,7 @@ $dataGolput = [
                             <div class="row">
                                 <div class="col-6">
                                     <div class="card-header">
-                                        <h4>Perbandingan Suara</h4>
+                                        <h4>Peserta yang Belum Memilih</h4>
                                     </div>
                                     <div class="card-body">
                                         <div id="donutChart"></div>
@@ -110,8 +110,8 @@ $dataGolput = [
                                 </div>
                                 <div class="col-6 d-flex align-items-center justify-content-center">
                                     <div class="">
-                                        <a href="<?= base_url('report/totalVotingProdi'); ?>" type=" submit" class="btn btn-primary me-1 mb-1 d-block" style="width:100%;"><i class="bi bi-download mx-2 mt-2"></i> Unduh PDF</a>
-                                        <a href="<?= base_url('report/totalVotingProdiExcel'); ?>" type=" submit" class="btn btn-success me-1 mb-1 d-block" style="width:100%;"><i class="bi bi-download mx-2 mt-2"></i> Unduh Excel</a>
+                                        <a href="<?= base_url('report/golput'); ?>" type=" submit" class="btn btn-primary me-1 mb-1 d-block" style="width:100%;"><i class="bi bi-download mx-2 mt-2"></i> Unduh PDF</a>
+                                        <a href="<?= base_url('report/golputExcel'); ?>" type=" submit" class="btn btn-success me-1 mb-1 d-block" style="width:100%;"><i class="bi bi-download mx-2 mt-2"></i> Unduh Excel</a>
                                     </div>
                                 </div>
                             </div>
@@ -348,7 +348,7 @@ $dataGolput = [
                         chart: {
                             type: 'donut',
                         },
-                        labels: ['Total Telah Memilih', 'Total Belum Memililh'],
+                        labels: ['Total Belum Memilih', 'Total Telah Memililh'],
                         responsive: [{
                             breakpoint: 480,
                             options: {
