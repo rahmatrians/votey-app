@@ -72,7 +72,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item active">
+                        <li class="sidebar-item">
                             <a href="<?= base_url(); ?>/report" class='sidebar-link'>
                                 <i class="bi bi-journal-text"></i>
                                 <span>Laporan</span>

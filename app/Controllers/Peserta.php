@@ -4,16 +4,19 @@ namespace App\Controllers;
 
 use App\Models\PesertaModel;
 use App\Models\ProdiModel;
+use App\Models\DataVotingModel;
 
 class Peserta extends BaseController
 {
     protected $pesertaModel;
     protected $prodiModel;
+    protected $dataVotingModel;
 
     public function __construct()
     {
         $this->pesertaModel = new PesertaModel();
         $this->prodiModel = new ProdiModel();
+        $this->dataVotingModel = new dataVotingModel();
     }
     public function index()
     {
@@ -63,6 +66,17 @@ class Peserta extends BaseController
         ]);
 
         session()->setFlashdata('pesan', 'Data success added');
+        return redirect()->back();
+    }
+
+    public function delete($id)
+    {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+        $this->dataVotingModel->where('nim', $id)->delete();
+        $this->pesertaModel->where('nim', $id)->delete();
+        session()->setFlashdata('pesan', 'Data success deleted');
         return redirect()->back();
     }
 }

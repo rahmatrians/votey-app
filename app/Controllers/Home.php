@@ -27,22 +27,33 @@ class Home extends BaseController
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();
-        $dataSuara = $this->dataSuaraModel->where('id_poll', $eventData['id_poll'])->findAll();
-        $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
-        $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
-        $totalPeserta = $this->pesertaModel->countAllResults();
-        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
+        if ($eventData > 0) {
+            $dataSuara = $this->dataSuaraModel->where('id_poll', $eventData['id_poll'])->findAll();
+            $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
+            $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
+            $totalPeserta = $this->pesertaModel->countAllResults();
+            $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->where('id_poll', $eventData['id_poll'])->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
 
-        // dd($totalPemilihByProdi);
+            // dd($totalPemilihByProdi);
 
-        $data = [
-            'event' => $eventData,
-            'dataSuara' => $dataSuara,
-            'kandidat' => $kandidatData,
-            'totalSuara' => $totalSuara,
-            'totalPeserta' => $totalPeserta,
-            'totalPemilihByProdi' => $totalPemilihByProdi,
-        ];
+            $data = [
+                'event' => $eventData,
+                'dataSuara' => $dataSuara,
+                'kandidat' => $kandidatData,
+                'totalSuara' => $totalSuara,
+                'totalPeserta' => $totalPeserta,
+                'totalPemilihByProdi' => $totalPemilihByProdi,
+            ];
+        } else {
+            $data = [
+                'event' => "",
+                'dataSuara' => "",
+                'kandidat' => "",
+                'totalSuara' => "",
+                'totalPeserta' => "",
+                'totalPemilihByProdi' => "",
+            ];
+        }
         // dd($data);
         return view('dashboard/index', $data);
     }

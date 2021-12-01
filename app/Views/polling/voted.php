@@ -31,6 +31,10 @@
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <div class="mt-4">
+                                        <?php $total_poll[$x] = (int)$dataSuara[$x]['total_suara']; ?>
+                                        <?php $kandName[$x] = $data['nama_ketua'] . ' & ' . $data['nama_wakil']; ?>
+
+                                        <h1 class="text-center"><strong><?= $dataSuara[$x]['total_suara']; ?></strong></h1>
                                     </div>
                                 </div>
                             </div>
@@ -46,6 +50,7 @@
     </div>
     <div class="d-block mx-auto d-flex align-items-center">
         <div class="d-flex flex-column bd-highlight mb-3">
+            <p class="text-center"><b>halo,<?= $_SESSION['nama_lengkap']; ?></b></p>
             <h3 class="mb-3 bd-highlight flex-fill text-center mx-auto"><?= $message; ?></h3>
             <a class="mx-5 text-center btn btn-danger" href="<?= base_url(); ?>/auth/logout/<?= session()->get('nim'); ?>"><strong>Logout</strong></a>
         </div>
