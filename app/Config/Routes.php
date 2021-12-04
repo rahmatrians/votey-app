@@ -39,9 +39,11 @@ $routes->delete('kandidat/(:num)', 'Kandidat::delete/$1', ['filter' => 'auth']);
 $routes->delete('peserta/(:num)', 'Peserta::delete/$1', ['filter' => 'auth']);
 $routes->get('kandidat/(:num)', 'Kandidat::getById/$1', ['filter' => 'auth']);
 $routes->post('kandidat/edit/(:num)', 'Kandidat::edit/$1', ['filter' => 'auth']);
+$routes->post('peserta/update/(:num)', 'Peserta::update/$1', ['filter' => 'auth']);
 $routes->get('polling', 'Polling::index', ['filter' => 'auth']);
 $routes->get('polling/voted/(:num)', 'Polling::voted/$1', ['filter' => 'auth']);
 $routes->get('kandidat/event/(:num)', 'Kandidat::index/$1', ['filter' => 'auth']);
+$routes->get('account/(:num)', 'Account::index/$1', ['filter' => 'auth']);
 // $routes->get('/event/updateStatus/(:num)', 'Event::updateStatus/$1', ['filter' => 'auth']);
 // $routes->get('kandidat/(:any)', 'Kandidat::index', ['filter' => 'auth']);
 

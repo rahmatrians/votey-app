@@ -53,7 +53,7 @@ class Event extends BaseController
         ]);
 
         session()->setFlashdata('pesan', 'Data success added');
-        return redirect()->to('/');
+        return redirect()->to('/events');
     }
 
     // public function edit($id)

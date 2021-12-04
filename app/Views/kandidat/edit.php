@@ -14,7 +14,7 @@
 
     <div class="page-content">
         <section class="row">
-            <div class="col-5">
+            <div class="col-6">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Form Kandidat</h4>
@@ -23,7 +23,6 @@
                         <div class="card-body">
                             <form method="post" action="<?= base_url(); ?>/kandidat/update/<?= $kandidat['id_kandidat']; ?>" enctype="multipart/form-data" class="form form-vertical">
                                 <?= csrf_field(); ?>
-
                                 <input hidden name="id_poll" value="<?= $eventId; ?>" type="text">
 
                                 <div class="form-body">
@@ -87,7 +86,7 @@
                                                     <div class="form-group mb-4">
                                                         <label for="first-name-icon">Visi</label>
                                                         <div class="form-floating">
-                                                            <textarea name="visi" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"><?= $kandidat['visi']; ?></textarea>
+                                                            <textarea name="visi" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="min-height: 200px;"><?= $kandidat['visi']; ?></textarea>
                                                             <label for="floatingTextarea">Ketikkan di sini...</label>
                                                         </div>
                                                     </div>
@@ -97,7 +96,7 @@
                                                     <div class="form-group mb-4">
                                                         <label for="first-name-icon">Misi</label>
                                                         <div class="form-floating">
-                                                            <textarea name="misi" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"><?= $kandidat['misi']; ?></textarea>
+                                                            <textarea name="misi" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="min-height: 200px;"><?= $kandidat['misi']; ?></textarea>
                                                             <label for="floatingTextarea">Ketikkan di sini...</label>
                                                         </div>
                                                     </div>
@@ -107,7 +106,7 @@
                                                     <div class="form-group mb-4">
                                                         <label for="first-name-icon">Program Kerja</label>
                                                         <div class="form-floating">
-                                                            <textarea name="program_kerja" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"><?= $kandidat['program_kerja']; ?></textarea>
+                                                            <textarea name="program_kerja" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="min-height: 200px;"><?= $kandidat['program_kerja']; ?></textarea>
                                                             <label for="floatingTextarea">Ketikkan di sini...</label>
                                                         </div>
                                                     </div>

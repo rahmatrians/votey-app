@@ -5,18 +5,21 @@ namespace App\Controllers;
 use App\Models\PesertaModel;
 use App\Models\ProdiModel;
 use App\Models\DataVotingModel;
+use App\Models\EventModel;
 
 class Peserta extends BaseController
 {
     protected $pesertaModel;
     protected $prodiModel;
     protected $dataVotingModel;
+    protected $eventModel;
 
     public function __construct()
     {
         $this->pesertaModel = new PesertaModel();
         $this->prodiModel = new ProdiModel();
         $this->dataVotingModel = new dataVotingModel();
+        $this->eventModel = new EventModel();
     }
     public function index()
     {
@@ -55,7 +58,7 @@ class Peserta extends BaseController
         }
 
         $explode = explode("-", $this->request->getVar('tgl_lahir'));
-        $newPass = implode($explode);
+        $newPass = md5(implode($explode));
 
         $this->pesertaModel->save([
             'nim' => $this->request->getVar('nim'),
@@ -67,6 +70,44 @@ class Peserta extends BaseController
 
         session()->setFlashdata('pesan', 'Data success added');
         return redirect()->back();
+    }
+
+    public function edit($id)
+    {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+
+        $peserta = $this->pesertaModel->where('nim', $id)->first();
+        $oneProdi = $this->prodiModel->where('id_prodi', $peserta['id_prodi'])->first();
+        $allProdi = $this->prodiModel->findAll();
+        $data = [
+            // 'eventId' => $event['id_poll'],
+            'titlePage' => 'Edit Data Peserta',
+            'prodi' => $allProdi,
+            'validation' => \Config\Services::validation(),
+            'peserta' => $peserta,
+            'oneProdi' => $oneProdi
+        ];
+        // dd($data);
+        return view('/peserta/edit', $data);
+    }
+
+    public function update($id)
+    {
+        if (session()->get('role') != 'admin') {
+            return redirect()->to('/polling');
+        }
+
+        $data = [
+            'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+            'id_prodi' => $this->request->getVar('id_prodi'),
+            'tgl_lahir' => $this->request->getVar('tgl_lahir'),
+        ];
+        $this->pesertaModel->update($id, $data);
+
+        session()->setFlashdata('pesan', 'Data success changed');
+        return redirect()->to('peserta/');
     }
 
     public function delete($id)

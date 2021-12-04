@@ -167,8 +167,6 @@ if ($totalPemilihByProdi != null) {
                             </div>
                         </div>
                     </div>
-
-                    <a class="m-3 btn btn-danger" href="<?= base_url(); ?>/auth/logout/<?= session()->get('id_admin'); ?>">Logout</a>
                 </div>
             </div>
         </section>

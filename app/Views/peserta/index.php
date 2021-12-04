@@ -30,7 +30,6 @@
                                                 <th>NIM</th>
                                                 <th>Nama Lengkap</th>
                                                 <th>Prodi</th>
-                                                <th>Tanggal Lahir</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -41,12 +40,11 @@
                                                     <td><?= $data['nim']; ?></td>
                                                     <td><?= $data['nama_lengkap']; ?></td>
                                                     <td><?= $data['nama_prodi']; ?></td>
-                                                    <td><?= $data['tgl_lahir']; ?></td>
                                                     <td>
                                                         <div class="row">
-                                                            <!-- <div class="col-auto mx-auto">
-                                                                <a class=" icon dripicons-pencil edit" data="<?= $data['nim']; ?>"></a>
-                                                            </div> -->
+                                                            <div class="col-auto mx-auto">
+                                                                <a href="<?= base_url() ?>/peserta/edit/<?= $data['nim']; ?>" class=" icon dripicons-pencil"></a>
+                                                            </div>
                                                             <div class="col-auto mx-auto">
                                                                 <form action="<?= base_url(); ?>/peserta/<?= $data['nim']; ?>" method="POST" class="d-inline">
                                                                     <?= csrf_field(); ?>

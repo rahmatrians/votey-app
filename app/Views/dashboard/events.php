@@ -11,7 +11,7 @@
     </header>
 
     <div class="page-heading">
-        <h3>Profile Statistics</h3>
+        <h3>Pemilihan</h3>
     </div>
     <div class="page-content">
         <section class="row">
@@ -94,8 +94,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <a class="m-3 btn btn-danger" href="<?= base_url(); ?>/auth/logout/<?= session()->get('id_admin'); ?>">Logout</a>
                 </div>
                 <!-- <div class="card">
                             <div class="card-header">

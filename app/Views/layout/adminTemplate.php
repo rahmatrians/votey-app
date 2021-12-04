@@ -41,6 +41,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <!-- <a href="index.html"><img src="<?= base_url(); ?>/vendor/images/logo/logo.png" alt="Logo" srcset=""></a> -->
+                            <h2 style="color: #5561F5;"><i><strong>Votey App</strong></i></h2>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -76,6 +77,19 @@
                             <a href="<?= base_url(); ?>/report" class='sidebar-link'>
                                 <i class="bi bi-journal-text"></i>
                                 <span>Laporan</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="<?= base_url(); ?>/account/<?= session()->get('id_admin'); ?>" class='sidebar-link'>
+                                <i class="bi bi-gear"></i>
+                                <span>Pengaturan</span>
+                            </a>
+                        </li>
+                        <!-- <hr> -->
+                        <li class="sidebar-item mt-5 text-center">
+                            <a class="text-center m-3 btn btn-danger px-5 sidebar-link text-white" href="<?= base_url(); ?>/auth/logout/<?= session()->get('id_admin'); ?>">
+                                Logout
                             </a>
                         </li>
                     </ul>

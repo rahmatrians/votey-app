@@ -42,12 +42,12 @@ class Auth extends BaseController
                 $session->set($ses_data);
                 return redirect()->to(base_url() . '/');
             } else {
-                $session->set_flashdata('fail', 'nama pengguna atau katasandi kamu salah!');
+                $session->setFlashdata('fail', 'nama pengguna atau katasandi kamu salah!');
                 return redirect()->to(base_url() . '/' . 'auth');
             }
         } elseif ($this->pesertaModel->where('nim', $this->request->getVar('username'))->first() != NULL) {
             $getUser = $this->pesertaModel->where('nim', $this->request->getVar('username'))->first();
-            if ($this->request->getVar('password') == $getUser['password']) {
+            if (md5($this->request->getVar('password')) == $getUser['password']) {
                 $ses_data = [
                     'nim'       => $getUser['nim'],
                     'nama_lengkap'     => $getUser['nama_lengkap'],
@@ -59,7 +59,7 @@ class Auth extends BaseController
                 $session->set($ses_data);
                 return redirect()->to(base_url() . '/polling');
             } else {
-                $session->set_flashdata('fail', 'nama pengguna atau katasandi kamu salah!');
+                $session->setFlashdata('fail', 'nama pengguna atau katasandi kamu salah!');
                 return redirect()->to(base_url() . '/' . 'auth');
             }
         } else {
@@ -70,6 +70,10 @@ class Auth extends BaseController
 
     public function logout($id)
     {
+        $this->adminModel->update($id, [
+            "last_login" =>  date("Y-m-d h:i:s")
+        ]);
+
         $session = session();
         unset($_SESSION);
         $session->destroy();
