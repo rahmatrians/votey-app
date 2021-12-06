@@ -62,23 +62,7 @@
                     <?php
                     endforeach; ?>
 
-
-
-
-
                 </div>
-                <!-- <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Profile Visit</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="chart-profile-visit"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
 
             </div>
             <div class="col-12 col-lg-3">
@@ -95,52 +79,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="card">
-                            <div class="card-header">
-                                <h4>Recent Messages</h4>
-                            </div>
-                            <div class="card-content pb-4">
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="<?= base_url(); ?>/vendor/images/faces/4.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">Hank Schrader</h5>
-                                        <h6 class="text-muted mb-0">@johnducky</h6>
-                                    </div>
-                                </div>
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="<?= base_url(); ?>/vendor/images/faces/5.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">Dean Winchester</h5>
-                                        <h6 class="text-muted mb-0">@imdean</h6>
-                                    </div>
-                                </div>
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="<?= base_url(); ?>/vendor/images/faces/1.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">John Dodol</h5>
-                                        <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                    </div>
-                                </div>
-                                <div class="px-4">
-                                    <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                                        Conversation</button>
-                                </div>
-                            </div>
-                        </div> -->
-                <!-- <div class="card">
-                            <div class="card-header">
-                                <h4>Visitors Profile</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
-                            </div>
-                        </div> -->
             </div>
         </section>
     </div>
@@ -201,18 +139,114 @@
             <!-- Vertically Centered modal Modal -->
 
 
-            <footer>
+            <!-- <footer>
                 <div class="footer clearfix mb-0 text-muted">
-                    <!-- <div class="float-start">
+                    <div class="float-start">
                         <p>2021 &copy; Mazer</p>
                     </div>
                     <div class="float-end">
                         <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div> -->
+                    </div>
                 </div>
-            </footer>
+            </footer> -->
         </div>
     </div>
 
+    <?php if (session()->getFlashdata('pesan') != null) { ?>
+
+        <script>
+            new Noty({
+                theme: 'nest',
+                type: 'success',
+                layout: 'bottomRight',
+                text: '<?= session()->getFlashdata('pesan') ?>',
+                timeout: 2000,
+
+                animation: {
+                    open: function(promise) {
+                        var n = this;
+                        new Bounce()
+                            .translate({
+                                from: {
+                                    x: 450,
+                                    y: 0
+                                },
+                                to: {
+                                    x: 0,
+                                    y: 0
+                                },
+                                easing: "bounce",
+                                duration: 1000,
+                                bounces: 4,
+                                stiffness: 3
+                            })
+                            .scale({
+                                from: {
+                                    x: 1.2,
+                                    y: 1
+                                },
+                                to: {
+                                    x: 1,
+                                    y: 1
+                                },
+                                easing: "bounce",
+                                duration: 1000,
+                                delay: 100,
+                                bounces: 4,
+                                stiffness: 1
+                            })
+                            .scale({
+                                from: {
+                                    x: 1,
+                                    y: 1.2
+                                },
+                                to: {
+                                    x: 1,
+                                    y: 1
+                                },
+                                easing: "bounce",
+                                duration: 1000,
+                                delay: 100,
+                                bounces: 6,
+                                stiffness: 1
+                            })
+                            .applyTo(n.barDom, {
+                                onComplete: function() {
+                                    promise(function(resolve) {
+                                        resolve();
+                                    })
+                                }
+                            });
+                    },
+                    close: function(promise) {
+                        var n = this;
+                        new Bounce()
+                            .translate({
+                                from: {
+                                    x: 0,
+                                    y: 0
+                                },
+                                to: {
+                                    x: 450,
+                                    y: 0
+                                },
+                                easing: "bounce",
+                                duration: 500,
+                                bounces: 4,
+                                stiffness: 1
+                            })
+                            .applyTo(n.barDom, {
+                                onComplete: function() {
+                                    promise(function(resolve) {
+                                        resolve();
+                                    })
+                                }
+                            });
+                    }
+                }
+            }).show();
+        </script>
+
+    <?php } ?>
 
     <?= $this->endSection('content'); ?>

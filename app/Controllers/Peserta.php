@@ -68,7 +68,7 @@ class Peserta extends BaseController
             'password' => $newPass
         ]);
 
-        session()->setFlashdata('pesan', 'Data success added');
+        session()->setFlashdata('pesan', 'Peserta Berhasil Ditambahkan!');
         return redirect()->back();
     }
 

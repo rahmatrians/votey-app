@@ -102,7 +102,7 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group mb-4 has-icon-left">
-                                                <label id="label" for="first-name-icon">Nama Voting</label>
+                                                <label id="label" for="first-name-icon">--</label>
                                                 <div class="position-relative">
                                                     <input type="text" id="input-change-data" placeholder="Ketikkan di sini..." id="first-name-icon">
                                                     <div class="form-control-icon">
@@ -122,7 +122,7 @@
                                         </button>
                                         <button type="submit" class="btn btn-primary ml-1">
                                             <i class="bx bx-check d-block d-sm-none"></i>
-                                            <span class="d-none d-sm-block">Buat</span>
+                                            <span class="d-none d-sm-block">Ubah</span>
                                         </button>
                                     </div>
                                 </div>

@@ -52,7 +52,7 @@ class Event extends BaseController
             'status' => 0,
         ]);
 
-        session()->setFlashdata('pesan', 'Data success added');
+        session()->setFlashdata('pesan', 'Event Berhasil Ditambahkan!');
         return redirect()->to('/events');
     }
 

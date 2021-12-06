@@ -26,9 +26,21 @@
     <link rel="shortcut icon" href="<?= base_url(); ?>/vendor/images/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="<?= base_url(); ?>/vendor/vendors/dripicons/webfont.css">
 
+    <!-- noty js -->
+    <link href="<?= base_url(); ?>/vendor/vendors/needim/noty/lib/noty.css" rel="stylesheet">
+    <script src="<?= base_url(); ?>/vendor/vendors/needim/noty/lib/noty.js" type="text/javascript"></script>
+
+    <!-- bounce js -->
+    <script src="<?= base_url(); ?>/vendor/vendors/bounceJs/bounce.js" type="text/javascript"></script>
+
     <style>
         .xz-card {
             height: 160px !important;
+        }
+
+        .btn-logout:hover {
+            background-color: #950000 !important;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -87,10 +99,12 @@
                             </a>
                         </li>
                         <!-- <hr> -->
-                        <li class="sidebar-item mt-5 text-center">
-                            <a class="text-center m-3 btn btn-danger px-5 sidebar-link text-white" href="<?= base_url(); ?>/auth/logout/<?= session()->get('id_admin'); ?>">
-                                Logout
-                            </a>
+                        <li class="sidebar-item mt-5">
+                            <div class="sidebar-link btn btn-danger btn-logout">
+                                <a class="text-center mx-auto text-white" href="<?= base_url(); ?>/auth/logout/<?= session()->get('id_admin'); ?>">
+                                    Logout
+                                </a>
+                            </div>
                         </li>
                     </ul>
                 </div>

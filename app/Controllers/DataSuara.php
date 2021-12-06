@@ -35,6 +35,7 @@ class DataSuara extends BaseController
             'total_suara' => 0
         ]);
 
+        session()->setFlashdata('pesan', 'Kandidat Berhasil Ditambahkan!');
         return redirect()->to(base_url() . '/kandidat/event/' . $id_poll);
     }
 
