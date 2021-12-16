@@ -43,6 +43,8 @@ class DataSuara extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $this->dataSuaraModel->where('id_kandidat', $id)->delete();

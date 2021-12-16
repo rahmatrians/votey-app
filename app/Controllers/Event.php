@@ -37,6 +37,8 @@ class Event extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         if (!$this->validate([
@@ -148,6 +150,8 @@ class Event extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $multipleWhere = ['status' => 1, 'id_poll' => $id];
@@ -156,10 +160,14 @@ class Event extends BaseController
                 "status" => $this->request->getVar('status'),
             ]);
         } else {
-            dd("masih ada yg belum selesai nih mat di update status ini");
+            dd("masih ada yg belum selesai nih diupdate status ini xixixi");
         }
 
-        session()->setFlashdata('pesan', 'Data success deleted');
+        if ($this->request->getVar('status') == '1') {
+            session()->setFlashdata('pesan', 'Event Berhasil Diaktifkan!');
+        } else {
+            session()->setFlashdata('pesan', 'Event Berhasil Dihentiikan!');
+        }
         return redirect()->to(base_url() . '/kandidat/event/' . $id);
     }
 

@@ -6,8 +6,12 @@
 
 
 <div class="d-flex align-content-center" style="height: 100vh">
-    <div class="mx-auto d-flex align-items-center">
-        <div class="d-flex flex-column bd-highlight mb-3">
+    <div class="mx-auto align-items-center">
+        <div class="page-heading text-center mt-5 pt-5">
+            <h3><?= $event['nama_poll'] ?></h3>
+        </div>
+        <div class="mb-3">
+            <p style="font-size: 14pt;" class="mb-5 text-center"><?= $message; ?></b></p>
             <div class="row">
 
                 <?php
@@ -48,11 +52,20 @@
             </div>
         </div>
     </div>
-    <div class="d-block mx-auto d-flex align-items-center">
-        <div class="d-flex flex-column bd-highlight mb-3">
-            <p class="text-center"><b>halo,<?= $_SESSION['nama_lengkap']; ?></b></p>
-            <h3 class="mb-3 bd-highlight flex-fill text-center mx-auto"><?= $message; ?></h3>
-            <a class="mx-5 text-center btn btn-danger" href="<?= base_url(); ?>/auth/logout/<?= session()->get('nim'); ?>"><strong>Logout</strong></a>
+
+
+    <div class="" style="position: absolute; top: 30px; right:30px;">
+        <div class="card px-2">
+            <div class="card-body">
+                <div class="d-flex justify-content-center">
+                    <div class="">
+                        <h5 class="bd-highlight flex-fill text-left mx-auto"><b>halo, <?= $_SESSION['nama_lengkap']; ?></b></h5>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a class="w-100 text-center btn btn-danger" href="<?= base_url(); ?>/auth/logout/<?= session()->get('nim'); ?>"><strong>Logout</strong></a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -2,26 +2,34 @@
 
 <?php
 
-$namaProdi = [];
+$total_poll = [];
+$kandName = [];
 $totalVoteByProdi = [];
+$namaProdi = [];
+$prodi = [];
+$dataGolput = [];
+$golput = [];
 
-for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
-    $prodi[$x] = $totalPemilihByProdi[$x]['nama_prodi'];
+
+if ($totalPemilihByProdi != null) {
+    for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
+        $prodi[$x] = $totalPemilihByProdi[$x]['nama_prodi'];
+    }
+
+
+    for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
+        $totalVoteByProdi[$x] = $totalPemilihByProdi[$x]['total'];
+    }
+
+    for ($x = 0; $x < count($pesertaGolput); $x++) {
+        $golput[$x] = $pesertaGolput[$x]['nim'];
+    }
+
+    $dataGolput = [
+        $totalGolput,
+        $totalPeserta,
+    ];
 }
-
-
-for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
-    $totalVoteByProdi[$x] = $totalPemilihByProdi[$x]['total'];
-}
-
-for ($x = 0; $x < count($pesertaGolput); $x++) {
-    $golput[$x] = $pesertaGolput[$x]['nim'];
-}
-
-$dataGolput = [
-    $totalGolput,
-    $totalPeserta,
-];
 
 ?>
 
@@ -47,11 +55,13 @@ $dataGolput = [
 
                     <?php
                     $x = 0;
-                    foreach ($kandidat as $data) :
-                        $total_poll[$x] = (int)$dataSuara[$x]['total_suara'];
-                        $kandName[$x] = $data['nama_ketua'] . ' & ' . $data['nama_wakil'];
-                        $x++;
-                    endforeach; ?>
+                    if (!empty($kandidat)) {
+                        foreach ($kandidat as $data) :
+                            $total_poll[$x] = (int)$dataSuara[$x]['total_suara'];
+                            $kandName[$x] = $data['nama_ketua'] . ' & ' . $data['nama_wakil'];
+                            $x++;
+                        endforeach;
+                    } ?>
 
                 </div>
 
@@ -187,18 +197,6 @@ $dataGolput = [
                             </div>
                         </div>
                         <!-- Vertically Centered modal Modal -->
-
-
-                        <footer>
-                            <div class="footer clearfix mb-0 text-muted">
-                                <!-- <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div> -->
-                            </div>
-                        </footer>
                 </div>
 
 
@@ -209,7 +207,7 @@ $dataGolput = [
                     var prodi_array = <?php echo json_encode($prodi); ?>;
                     var totalVoteByProdi_array = <?php echo json_encode($totalVoteByProdi); ?>;
                     var golput_array = <?php echo json_encode($dataGolput); ?>;
-                    console.log(total_poll_array);
+                    // console.log(total_poll_array);
                     var options = {
 
                         series: total_poll_array,

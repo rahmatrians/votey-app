@@ -24,6 +24,8 @@ class Home extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();
@@ -62,6 +64,8 @@ class Home extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $data = [

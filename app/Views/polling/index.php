@@ -11,8 +11,8 @@
         </a>
     </header>
 
-    <div class="page-heading text-center my-5">
-        <h3>Pilih Calon Ketua BEM!</h3>
+    <div class="page-heading text-center my-5 py-5">
+        <h3><?= $event['nama_poll'] ?></h3>
     </div>
     <div class="page-content">
         <section class="row">
@@ -72,10 +72,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h6><b>Visi</b></h6>
+                    <h6 class="pt-3"><b>Visi</b></h6>
                     <p id="visi">-</p>
-                    <h6><b>Misi</b></h5>
-                        <p id="misi">-</p>
+                    <h6 class="pt-3"><b>Misi</b></h6>
+                    <p id="misi">-</p>
+                    </h6>
+                    <h6 class="pt-3"><b>Program Kerja</b></h6>
+                    <p id="proker">-</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
@@ -88,16 +91,20 @@
     </div>
     <!-- Vertically Centered modal Modal -->
 
-    <footer>
-        <div class="footer clearfix mb-0 text-muted">
-            <!-- <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
+    <div class="" style="position: absolute; top: 30px; right:30px;">
+        <div class="card px-2">
+            <div class="card-body">
+                <div class="d-flex justify-content-center">
+                    <div class="">
+                        <h5 class="bd-highlight flex-fill text-left mx-auto"><b>halo, <?= $_SESSION['nama_lengkap']; ?></b></h5>
                     </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
-                    </div> -->
+                </div>
+                <div class="mt-2">
+                    <a class="w-100 text-center btn btn-danger" href="<?= base_url(); ?>/auth/logout/<?= session()->get('nim'); ?>"><strong>Logout</strong></a>
+                </div>
+            </div>
         </div>
-    </footer>
+    </div>
 </div>
 
 <script>
@@ -111,9 +118,11 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#exampleModalCenter').modal('show');
+                    $('#exampleModalCenterTitle').html(data.kandidat.nama_ketua + " & " + data.kandidat.nama_wakil);
                     $('#slogan').html(data.kandidat.slogan);
                     $('#visi').html(data.kandidat.visi);
                     $('#misi').html(data.kandidat.misi);
+                    $('#proker').html(data.kandidat.program_kerja);
                 }
             })
             return false;

@@ -26,29 +26,45 @@ class Report extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();
-        $dataSuara = $this->dataSuaraModel->where('id_poll', $eventData['id_poll'])->findAll();
-        $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
-        $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
-        $totalPeserta = $this->pesertaModel->countAllResults();
-        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
-        $pesertaGolput = $this->pesertaModel->select('nim, nama_lengkap, peserta.id_prodi, prodi.nama_prodi, tgl_lahir, password')->where('nim NOT IN (SELECT nim FROM data_voting)')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('nama_prodi', 'ASC')->findAll();
-        $totalGolput = $this->pesertaModel->select('nim, nama_lengkap, peserta.id_prodi, prodi.nama_prodi, tgl_lahir, password')->where('nim NOT IN (SELECT nim FROM data_voting)')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('nama_prodi', 'ASC')->countAllResults();
+        if ($eventData > 0) {
+            $eventData = $this->eventModel->where('status', 1)->first();
+            $dataSuara = $this->dataSuaraModel->where('id_poll', $eventData['id_poll'])->findAll();
+            $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
+            $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
+            $totalPeserta = $this->pesertaModel->countAllResults();
+            $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->where('id_poll', $eventData['id_poll'])->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
+            $pesertaGolput = $this->pesertaModel->select('nim, nama_lengkap, peserta.id_prodi, prodi.nama_prodi, tgl_lahir, password')->where('nim NOT IN (SELECT nim FROM data_voting)')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('nama_prodi', 'ASC')->findAll();
+            $totalGolput = $this->pesertaModel->select('nim, nama_lengkap, peserta.id_prodi, prodi.nama_prodi, tgl_lahir, password')->where('nim NOT IN (SELECT nim FROM data_voting)')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('nama_prodi', 'ASC')->countAllResults();
 
-        // dd($pesertaGolput);
+            // dd($);
 
-        $data = [
-            'event' => $eventData,
-            'dataSuara' => $dataSuara,
-            'kandidat' => $kandidatData,
-            'totalSuara' => $totalSuara,
-            'totalPeserta' => $totalPeserta,
-            'totalPemilihByProdi' => $totalPemilihByProdi,
-            'pesertaGolput' => $pesertaGolput,
-            'totalGolput' => $totalGolput,
-        ];
+            $data = [
+                'event' => $eventData,
+                'dataSuara' => $dataSuara,
+                'kandidat' => $kandidatData,
+                'totalSuara' => $totalSuara,
+                'totalPeserta' => $totalPeserta,
+                'totalPemilihByProdi' => $totalPemilihByProdi,
+                'pesertaGolput' => $pesertaGolput,
+                'totalGolput' => $totalGolput,
+            ];
+        } else {
+            $data = [
+                'event' => "",
+                'dataSuara' => "",
+                'kandidat' => "",
+                'totalSuara' => "",
+                'totalPeserta' => "",
+                'totalPemilihByProdi' => "",
+                'pesertaGolput' => "",
+                'totalGolput' => "",
+            ];
+        }
         // dd($data);
         return view('report/index', $data);
     }
@@ -57,6 +73,8 @@ class Report extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();
@@ -64,7 +82,7 @@ class Report extends BaseController
         $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
         $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
         $totalPeserta = $this->pesertaModel->countAllResults();
-        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
+        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->where('id_poll', $eventData['id_poll'])->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
 
 
         $data = [
@@ -84,6 +102,8 @@ class Report extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();
@@ -110,6 +130,8 @@ class Report extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();
@@ -117,9 +139,9 @@ class Report extends BaseController
         $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
         $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
         $totalPeserta = $this->pesertaModel->countAllResults();
-        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
-        $pesertaPemilih = $this->pesertaModel->select('*, prodi.id_prodi, prodi.nama_prodi')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('prodi.nama_prodi', 'ASC')->findAll();
-
+        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->where('id_poll', $eventData['id_poll'])->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
+        // $pesertaPemilih = $this->pesertaModel->select('*, prodi.id_prodi, prodi.nama_prodi')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('prodi.nama_prodi', 'ASC')->findAll();
+        $pesertaPemilih =  $this->dataVotingModel->select('prodi.nama_prodi, peserta.nim, peserta.nama_lengkap')->where('id_poll', $eventData['id_poll'])->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->findAll();
 
         $data = [
             'event' => $eventData,
@@ -138,6 +160,8 @@ class Report extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();
@@ -145,7 +169,7 @@ class Report extends BaseController
         $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
         $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
         $totalPeserta = $this->pesertaModel->countAllResults();
-        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
+        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->where('id_poll', $eventData['id_poll'])->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
         $pesertaPemilih = $this->pesertaModel->select('*, prodi.id_prodi, prodi.nama_prodi')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('prodi.nama_prodi', 'ASC')->findAll();
 
 
@@ -166,6 +190,8 @@ class Report extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();
@@ -173,7 +199,7 @@ class Report extends BaseController
         $kandidatData = $this->kandidatModel->where('id_poll', $eventData['id_poll'])->findAll();
         $totalSuara = $this->dataSuaraModel->selectSum('total_suara')->where('id_poll', $eventData['id_poll'])->first();
         $totalPeserta = $this->pesertaModel->countAllResults();
-        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
+        $totalPemilihByProdi = $this->dataVotingModel->select('prodi.nama_prodi, COUNT(id_voting) as total')->where('id_poll', $eventData['id_poll'])->join('peserta', 'peserta.nim = data_voting.nim')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->groupBy('prodi.id_prodi')->findAll();
         $pesertaGolput = $this->pesertaModel->select('nim, nama_lengkap, peserta.id_prodi, prodi.nama_prodi, tgl_lahir, password')->where('nim NOT IN (SELECT nim FROM data_voting)')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('nama_prodi', 'ASC')->findAll();
         $totalGolput = $this->pesertaModel->select('nim, nama_lengkap, peserta.id_prodi, prodi.nama_prodi, tgl_lahir, password')->where('nim NOT IN (SELECT nim FROM data_voting)')->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->orderBy('nama_prodi', 'ASC')->countAllResults();
 
@@ -195,6 +221,8 @@ class Report extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to(base_url() . '/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $eventData = $this->eventModel->where('status', 1)->first();

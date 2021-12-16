@@ -21,27 +21,21 @@
                     <!-- <div class="auth-logo">
                         <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo"></a>
                     </div> -->
-                    <h1 class="auth-title">Halo!</h1>
-                    <p class="auth-subtitle mb-5">Selamat Datang di Aplikasi <br>E-voting</p>
+                    <h1 class="auth-title">Verifikasi Akunmu!</h1>
+                    <p class="auth-subtitle mb-5">Satu langkah lagi untuk dapat menikmati seluruh layanan E-Voting</p>
 
-                    <form method="post" action="<?= base_url(); ?>/auth/validates">
+                    <form method="post" action="<?= base_url(); ?>/auth/verificationCode">
                         <?= csrf_field(); ?>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input name="username" type="text" class="form-control form-control-xl" placeholder="Nama Pengguna">
+                            <input name="activate_code" type="text" class="form-control form-control-xl" placeholder="6 digit kode aktivasi">
                             <div class="form-control-icon">
                                 <i class="bi bi-person"></i>
                             </div>
                         </div>
-                        <div class="form-group position-relative has-icon-left mb-4">
-                            <input name="password" type="password" class="form-control form-control-xl" placeholder="Kata Sandi">
-                            <div class="form-control-icon">
-                                <i class="bi bi-shield-lock"></i>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Masuk</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Verifikasi</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class='text-gray-600'>Belum memiliki akun? <a href="<?= base_url(); ?>/auth/register" class="font-bold">Daftar</a>.</p>
+                        <p class='text-gray-600'>Belum mendapatkan kode aktivasi? <a href="<?= base_url(); ?>/auth/register" class="font-bold"><br>Kirim Ulang</a>.</p>
                     </div>
                 </div>
             </div>

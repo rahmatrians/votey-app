@@ -146,7 +146,7 @@ for ($x = 0; $x < count($totalPemilihByProdi); $x++) {
         if (html2pdf().from(element).save()) {
             setTimeout(function() {
                 window.location.href = 'http://localhost:8080/report/';
-            }, 1000);
+            }, 1500);
         }
     });
 </script>

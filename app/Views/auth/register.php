@@ -21,11 +21,24 @@
                     <!-- <div class="auth-logo">
                         <a href="index.html"><img src="assets/images/logo/logo.png" alt="Logo"></a>
                     </div> -->
-                    <h1 class="auth-title">Halo!</h1>
-                    <p class="auth-subtitle mb-5">Selamat Datang di Aplikasi <br>E-voting</p>
+                    <h1 class="auth-title">Buat Akun</h1>
+                    <p class="auth-subtitle mb-5">Daftarkan dirimu untuk dapat mengakses seluruh fitur E-Voting</p>
 
-                    <form method="post" action="<?= base_url(); ?>/auth/validates">
+
+                    <form method="post" action="<?= base_url(); ?>/auth/registerValidates">
                         <?= csrf_field(); ?>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input name="nama_lengkap" type="text" class="form-control form-control-xl" placeholder="Nama Lengkap">
+                            <div class="form-control-icon">
+                                <i class="bi bi-person"></i>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input name="email" type="email" class="form-control form-control-xl" placeholder="Email Aktif">
+                            <div class="form-control-icon">
+                                <i class="bi bi-envelope"></i>
+                            </div>
+                        </div>
                         <div class="form-group position-relative has-icon-left mb-4">
                             <input name="username" type="text" class="form-control form-control-xl" placeholder="Nama Pengguna">
                             <div class="form-control-icon">
@@ -33,15 +46,21 @@
                             </div>
                         </div>
                         <div class="form-group position-relative has-icon-left mb-4">
-                            <input name="password" type="password" class="form-control form-control-xl" placeholder="Kata Sandi">
+                            <input name="password" type="password" class="form-control form-control-xl" placeholder="Kata Sandi Baru">
                             <div class="form-control-icon">
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Masuk</button>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input name="confirm_password" type="password" class="form-control form-control-xl" placeholder="Konfirmasi Kata Sandi">
+                            <div class="form-control-icon">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Daftar</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class='text-gray-600'>Belum memiliki akun? <a href="<?= base_url(); ?>/auth/register" class="font-bold">Daftar</a>.</p>
+                        <p class='text-gray-600'>Sudah memiliki akun? <a href="<?= base_url(); ?>/auth" class="font-bold">Masuk</a>.</p>
                     </div>
                 </div>
             </div>

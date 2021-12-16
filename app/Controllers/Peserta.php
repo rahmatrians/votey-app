@@ -25,6 +25,8 @@ class Peserta extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $peserta = $this->pesertaModel->join('prodi', 'prodi.id_prodi = peserta.id_prodi')->findAll();
@@ -43,6 +45,8 @@ class Peserta extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         // dd($this->request->getVar());
@@ -76,6 +80,8 @@ class Peserta extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $peserta = $this->pesertaModel->where('nim', $id)->first();
@@ -97,6 +103,8 @@ class Peserta extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $data = [
@@ -106,7 +114,7 @@ class Peserta extends BaseController
         ];
         $this->pesertaModel->update($id, $data);
 
-        session()->setFlashdata('pesan', 'Data success changed');
+        session()->setFlashdata('pesan', 'Peserta Berhasil Diubah!');
         return redirect()->to('peserta/');
     }
 
@@ -114,10 +122,12 @@ class Peserta extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
         $this->dataVotingModel->where('nim', $id)->delete();
         $this->pesertaModel->where('nim', $id)->delete();
-        session()->setFlashdata('pesan', 'Data success deleted');
+        session()->setFlashdata('pesan', 'Peserta Berhasil Dihapus!');
         return redirect()->back();
     }
 }

@@ -24,6 +24,8 @@ class Kandidat extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $kandidat = $this->kandidatModel->find($id);
@@ -38,6 +40,8 @@ class Kandidat extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $kandidat = $this->kandidatModel->where('id_poll', $id)->findAll();
@@ -56,6 +60,8 @@ class Kandidat extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         // dd($this->request->getFiles());
@@ -100,6 +106,8 @@ class Kandidat extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $kandidat = $this->kandidatModel->where('id_kandidat', $id)->first();
@@ -117,6 +125,8 @@ class Kandidat extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
 
         $fotoKandidat = $this->request->getFiles();
@@ -180,7 +190,7 @@ class Kandidat extends BaseController
             $fotoKandidat['foto_wakil']->move('images/kandidat/', $fileNameWakil);
         }
 
-        session()->setFlashdata('pesan', 'Data success changed');
+        session()->setFlashdata('pesan', 'Kandidat Berhasil Diubah!');
         return redirect()->to('kandidat/event/' . $this->request->getVar('id_poll'));
     }
 
@@ -188,10 +198,12 @@ class Kandidat extends BaseController
     {
         if (session()->get('role') != 'admin') {
             return redirect()->to('/polling');
+        } else if (session()->get('email_active_status') != 1) {
+            return redirect()->to(base_url() . '/auth/verification');
         }
         $this->dataSuaraModel->where('id_kandidat', $id)->delete();
         $this->kandidatModel->delete($id);
-        session()->setFlashdata('pesan', 'Data success deleted');
+        session()->setFlashdata('pesan', 'Data Berhasil Dihapus');
         return redirect()->back();
     }
 }

@@ -35,7 +35,9 @@ class Polling extends BaseController
         if ($getEvent != NULL) {
 
             if ($this->dataVotingModel->where('nim', session()->get('nim'))->where('id_poll', $getEvent['id_poll'])->countAllResults() == 0) {
+                $eventData = $this->eventModel->where('status', 1)->first();
                 $data = [
+                    'event' => $eventData,
                     'kandidat' => $this->kandidatModel->where('id_poll', $getEvent['id_poll'])->findAll(),
                 ];
                 return view('polling/index', $data);
