@@ -35,7 +35,7 @@
                         <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Verifikasi</button>
                     </form>
                     <div class="text-center mt-5 text-lg fs-4">
-                        <p class='text-gray-600'>Belum mendapatkan kode aktivasi? <a href="<?= base_url(); ?>/auth/register" class="font-bold"><br>Kirim Ulang</a>.</p>
+                        <p class='text-gray-600'>Belum mendapatkan kode aktivasi? <a href="<?= base_url(); ?>/auth/reSendVerificationCode" class="font-bold"><br>Kirim Ulang</a>.</p>
                     </div>
                 </div>
             </div>
